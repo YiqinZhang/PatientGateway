@@ -33,5 +33,5 @@ Remote Health Application System
 
 **Database schema**
 
-![](/Users/zhangyiqin/Downloads/530/Project/PatientGateway/img/DB.png)
+![](/img/DB.png)
 

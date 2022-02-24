@@ -1,112 +1,44 @@
 from flask import Flask, escape, request
-from flask_restful import Api, Resource
-from flask import url_for,jsonify,redirect
+from flask_restful import Api, Resource, reqparse, abort
+from flask import url_for, jsonify, redirect
 
 app = Flask(__name__)
-
-
-# api = Api(app)
+api = Api(app)
+user_put_args = reqparse.RequestParser()
 #
-#
-# class Device(Resource):
-#     def get(self):
-#         return {"Hello World"}
-#
-#
-# api.add_resource(Device, "/")
+user_put_args.add_argument("name", type=str, help="User Name is required", required=True)
+user_put_args.add_argument("DoB", type=str, help="Date of birth of user")
+user_put_args.add_argument("Gender", type=str, help="Gender of the user")
+# user_put_args.add_argument("name", type=str, help="Name of the user")
+# user_put_args.add_argument("name", type=str, help="Name of the user")
+# user_put_args.add_argument("name", type=str, help="Name of the user")
+# user_put_args.add_argument("name", type=str, help="Name of the user")
+
+users = {}
+# users = {1: {"name": "tim", "DoB": "07/19/1998", "gender": "male"},
+#          2: {"name": "eve", "age": "12/24/2004", "gender": "female"}}
+
+def abort_if_user_id_doesnt_exist(user_id):
+    if user_id not in users:
+        abort(404, message="Could not find video...")
 
 
-@app.route('/')
-def hello():
-    name = request.args.get("name", "World")
-    return f'Hello, {escape(name)}!'
+class Device(Resource):
+    def get(self, user_id):
+        return users[user_id]
+
+    def put(self, user_id):
+        args = user_put_args.parse_args()
+        users[user_id] = args
+        # print(request.form)
+        return {user_id: args}, 201
+
+    def post(self, user_id):
+        return {"data": "posted"}
 
 
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return f'User {escape(username)}'
+api.add_resource(Device, "/device/<int:user_id>")
 
-
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    # show the post with the given id, the id is an integer
-    return f'Post {post_id}'
-
-
-@app.route('/path/<path:subpath>')
-def show_subpath(subpath):
-    # show the subpath after /path/
-    return f'Subpath {escape(subpath)}'
-
-
-@app.route('/projects/')
-def projects():
-    return 'The project page'
-
-
-@app.route('/about')
-def about():
-    return 'The about page'
-
-
-@app.route('/')
-def index():
-    return 'index'
-
-
-@app.route('/login')
-def login():
-    return 'login'
-
-
-@app.route('/user/<username>')
-def profile(username):
-    return f'{username}\'s profile'
-
-
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
-    print(url_for('profile', username='John Doe'))
-
-
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-    # if request.method == 'POST':
-    #     return redirect(url_for('index'))
-    # else:
-    #     return 'login'
-
-
-# @app.route('/login', methods=['POST', 'GET'])
-# def login():
-#     error = None
-#     if request.method == 'POST':
-#         if valid_login(request.form['username'],
-#                        request.form['password']):
-#             return log_the_user_in(request.form['username'])
-#         else:
-#             error = 'Invalid username/password'
-#     # the code below is executed if the request method
-#     # was GET or the credentials were invalid
-#     return render_template('login.html', error=error)
-
-#
-# @app.route("/me")
-# def me_api():
-#     user = get_current_user()
-#     return {
-#         "username": user.username,
-#         "theme": user.theme,
-#         "image": url_for("user_image", filename=user.image),
-#     }
-#
-# @app.route("/users")
-# def users_api():
-#     users = get_all_users()
-#     return jsonify([user.to_json() for user in users])
-
-# if __name__ == '__main__':
-# app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
+    # app.run(debug=True)

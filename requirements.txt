@@ -16,3 +16,5 @@ flake8
 mypy
 pytest >= 4.0
 
+
+requests~=2.27.1
