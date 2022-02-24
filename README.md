@@ -21,11 +21,35 @@ Remote Health Application System
 - I, the medical professional, should be able to see in color medical terms in the message.
 - I, AI developer, should be able to access the data anonymized. 
 
+## Branches
+
+Two branches
+
+Main branch: release ready cody.
+
+Develop:
+
+A branch is created off of main to add a new feature, bug-fix, or other change. Once the work is finished and actions on this branch run succesfully, then the work should be squashed and merged into the main branch.
+
+
+
 ## Components
 
-#### Device Module
+### Device Module
 
+Define Interface for devices to ingest data into the system
 
+##### Data Fields 
+
+(including knowing how to attribute the data to a patient)
+
+##### Error Conditions
+
+##### Pull or Push mechanisms
+
+Push mechanisms, Why to choose one versus the other
+
+Make sure you include Temperature, blood pressure, pulse, oximeter, weight and Glucometer and data your system can handle
 
 
 
@@ -33,5 +57,10 @@ Remote Health Application System
 
 **Database schema**
 
-![](/img/DB.png)
+![](/img/device_db.png)
 
+
+
+### Chat Module
+
+one-on-one chat
