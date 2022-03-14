@@ -1,8 +1,9 @@
 from flask import request
 from app import app
+import pytest
 
-with app.test_request_context('/hello', method='POST'):
-    # now you can do something with the request until the
-    # end of the with block, such as basic assertions:
-    assert request.path == '/hello'
-    assert request.method == 'POST'
+class TestRequest():
+    def test_request_input(self):
+        with app.test_request_context('/login', method='POST'):
+            assert request.path == '/login'
+            assert request.method == 'POST'
