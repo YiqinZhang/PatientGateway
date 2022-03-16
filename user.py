@@ -15,6 +15,7 @@ user_put_args.add_argument("weight", type=int, help="weight(lb) of the user")
 
 users = {}
 
+# --name
 
 # users = {1: {"name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype":"A", "height": 180,"weight": 170},
 #          2: {"name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype":"B", "height": 166,"weight": 120},
@@ -47,9 +48,21 @@ class User(Resource):
         return '', 204
 
 
-api.add_resource(User, "/device/<int:user_id>")
+class Patient:
+    def __init__(self, user_id, name, dob):
+        self.patient_id = user_id
+        self.dob = dob
+        self.name = name
+
+    def get_user(user_id):
+        if user_id in users:
+            return users[user_id]
+        else:
+            return f'Cannot find user {user_id}'
+
+
+api.add_resource(User, "/user/<int:user_id>")
 
 if __name__ == "__main__":
     app.run()
     # app.run(debug=True)
-

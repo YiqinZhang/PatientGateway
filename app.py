@@ -1,10 +1,13 @@
-from flask import Flask, escape, request
-from flask_restful import Api, Resource, reqparse, abort
-from flask import url_for, jsonify, redirect
+from flask import Flask, request
 from flask import render_template
+from flask import url_for, jsonify, redirect
+from flask_restful import Api, reqparse, abort
+from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
-from flask_wtf import FlaskForm
+
+import device
+import user
 
 app = Flask(__name__)
 api = Api(app)
@@ -17,13 +20,8 @@ def index():
     return "Welcome to the Patient Gateway!"
 
 
-# @app.route('/user/<username>')
-# def profile(username):
-#     return f'{username}\'s profile'
-
-
 class Register(FlaskForm):
-    name = StringField(label='Username', validators=[DataRequired('Username cannot be empty')])
+    username = StringField(label='Username', validators=[DataRequired('Username cannot be empty')])
     password = PasswordField(label='Password', validators=[DataRequired('Password cannot be empty')])
     password2 = PasswordField(label='Re-enter password', validators=[DataRequired('Password cannot be empty'), EqualTo('password')])
     submit = SubmitField(label='Submit')
@@ -37,10 +35,10 @@ def register():
         return render_template('register.html', form=form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = form.name.data
+            username = form.username.data
             password = form.password.data
             password2 = form.password2.data
-            print(user)
+            print(username)
             print(password)
             print(password2)
         else:
@@ -52,13 +50,11 @@ def register():
 def login():
     error = None
     if request.method == 'POST':
-        # if valid_login(request.form['username'],
-        #                request.form['password']):
-        #     return log_the_user_in(request.form['username'])
-        name = request.form['username']
+        username = request.form['username']
         password = request.form['password']
-        if name == 'zhang' and password == '123':
-            return redirect(url_for('main', name=name))
+        # if validate_login({username: password}):
+        if username == 'zhang' and password == '123':
+            return redirect(url_for('main', name=username))
         else:
             abort(404)
             error = 'Invalid username/password'
@@ -74,6 +70,26 @@ def main(name):
         name = request.form['username']
         bod = request.form['dob']
     return render_template('main.html', name=name)
+
+
+@app.route('/device/<user_id>', methods=['POST', 'GET'])
+def add_device_data(user_id):
+    measurements = {}
+    if request.method == 'POST':
+        measurements['patient_id'] = user_id
+        # measurements['patient_id'] = request.form['patient id']
+        measurements['temp'] = request.form['temperature']
+        measurements['pulse'] = request.form['pulse']
+        measurements['blood_pressure'] = request.form['blood pressure']
+        measurements['oxygen_level'] = request.form['oxygen level']
+        measurements['weight'] = request.form['weight']
+        measurements['glucose_level'] = request.form['glucose level']
+    try:
+        return device.add_data(user_id, measurements)
+    #     # return jsonify(user.get_patient(user_id))
+    #     return render_template('device.html', user_id=user_id)
+    except ValueError as e:
+        abort(404, description=e)
 
 
 if __name__ == "__main__":
