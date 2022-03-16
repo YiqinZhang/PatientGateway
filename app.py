@@ -84,14 +84,13 @@ def add_device_data(user_id):
         measurements['oxygen_level'] = request.form['oxygen level']
         measurements['weight'] = request.form['weight']
         measurements['glucose_level'] = request.form['glucose level']
-    try:
-        return device.add_data(user_id, measurements)
-    #     # return jsonify(user.get_patient(user_id))
-    #     return render_template('device.html', user_id=user_id)
-    except ValueError as e:
-        abort(404, description=e)
+        try:
+            return jsonify(device.add_data(user_id, measurements, 'devicedata.json'))
+        except ValueError as e:
+            abort(404, description=e)
+    return render_template('device.html', user_id=user_id)
 
 
 if __name__ == "__main__":
-    # app.run()
-    app.run(debug=True)
+    app.run()
+    # app.run(debug=True)

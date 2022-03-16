@@ -15,11 +15,10 @@ user_put_args.add_argument("weight", type=int, help="weight(lb) of the user")
 
 users = {}
 
-# --name
-
 # users = {1: {"name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype":"A", "height": 180,"weight": 170},
 #          2: {"name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype":"B", "height": 166,"weight": 120},
 #          3: {"name": "adam", "DoB": "02/22/2002", "gender": "female", "bloodtype":"AB", "height": 178,"weight": 160}}
+
 
 def abort_if_user_id_doesnt_exist(user_id):
     if user_id not in users:
