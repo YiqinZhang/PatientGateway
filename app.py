@@ -85,8 +85,7 @@ def add_device_data(user_id):
         measurements['weight'] = request.form['weight']
         measurements['glucose_level'] = request.form['glucose level']
         try:
-            # device.add_data(user_id, measurements)
-            return jsonify(device.add_data(user_id, measurements,'devicedata'))
+            return jsonify(device.add_data(user_id, measurements, 'devicedata.json'))
         except ValueError as e:
             abort(404, description=e)
     return render_template('device.html', user_id=user_id)

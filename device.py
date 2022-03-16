@@ -1,15 +1,10 @@
 import datetime
 import re
 import json
-from flask_restful import Api, Resource, reqparse, abort
-
-import user
 
 with open('user.json', 'r') as f:
     data = json.load(f)
     sample = data['users']
-
-
 # sample = [{'user_id': 1, 'name': 'tim', 'DoB': '07/19/1998', 'gender': 'male', 'bloodtype': 'A', 'height': 180,
 #          'weight': 170},
 #         {'user_id': 2, 'name': 'eve', 'DoB': '12/24/2004', 'gender': 'female', 'bloodtype': 'B', 'height': 166,
@@ -24,7 +19,10 @@ def add_data(user_id, measurements, filename):
         if u['user_id'] == user_id:
             exist = True
     if not exist:
-        raise ValueError(f'Cannot find user {user_id}')
+        raise KeyError(f'Cannot find user {user_id}')
+
+    if measurements is None:
+        raise ValueError("Measurements data is Empty")
 
     for k, v in measurements.items():
         v = float(v)
@@ -50,12 +48,12 @@ def add_data(user_id, measurements, filename):
     time = datetime.datetime.now()
     time_str = datetime.datetime.strftime(time, '%Y-%m-%d %H:%M:%S')
     measurements['created_date'] = time_str
-    with open(filename, 'w') as f:
-        json.dump(measurements, f)
+    with open(filename, 'w') as fp:
+        json.dump(measurements, fp)
     return measurements
 
 
-'''
+# '''
 measurements = {
     "patient_id": "1",
     "temp": "97",
@@ -66,30 +64,16 @@ measurements = {
     "glucose_level": "100"
 }
 try:
-    add_data(1, measurements, 'devicedata')
+    add_data(1, measurements, 'devicedata.json')
 except ValueError as e:
     abort(404, description=e)
-'''
+# '''
 f.close()
 
 
-class Device:
-    def __init__(self, device_id, device_type, patient_id):
-        self.device_id = device_id
-        self.device_type = device_type
-        self.patient_id = patient_id
+# class Device:
+#     def __init__(self, device_id, device_type, patient_id):
+#         self.device_id = device_id
+#         self.device_type = device_type
+#         self.patient_id = patient_id
 
-    # def get(self, user_id):
-    #     abort_if_user_id_doesnt_exist(user_id)
-    #     return devices[user_id]
-    #
-    # def put(self, user_id):
-    #     abort_if_id_exists(user_id)
-    #     args = device_put_args.parse_args()
-    #     devices[user_id] = args
-    #     return devices[user_id], 201
-    #
-    # def delete(self, user_id):
-    #     abort_if_user_id_doesnt_exist(user_id)
-    #     del devices[user_id]
-    #     return '', 204

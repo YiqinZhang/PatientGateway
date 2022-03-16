@@ -1,36 +1,48 @@
-import unittest
 import requests
-
-BASE = "http://127.0.0.1:5000/"
-# temperature, blood pressure, pulse, oximeter, weight and Glucometer
-response = requests.get(BASE + "device/1")
-print(response.json())
-response = requests.put(BASE + "device/1", {"temperature": 37})
-response = requests.put(BASE + "device/1", {"blood pressure": "70/90", "pulse": 60})
-
-response = requests.get(BASE + "device/1")
-print(response.json())
-
-# data = [{"temperature": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype":"A", "height": 180, "weight": 170},
-#         {"name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype":"B", "height": 166, "weight": 120},
-#         {"name": "adam", "DoB": "02/22/2002", "gender": "female", "bloodtype":"AB", "height": 178, "weight": 160}]
-
-# for i in range(len(data)):
-#     response = requests.put(BASE + "device/" + str(i), data[i])
-#     print(response.json())
-
-# response = requests.delete(BASE + "device/1")
-# print(response)
-# input()
-
-# response = requests.get(BASE + "device/2")
-# print(response.json())
-# input()
-
-# class MyTestCase(unittest.TestCase):
-#     def test_something(self):
-#         self.assertEqual(True, False)  # add assertion here
+import pytest
+from device import *
 
 
-# if __name__ == '__main__':
-#     unittest.main()
+class TestDevice:
+    measurements = {}
+
+    def test_no_input_data(self):
+        with pytest.raises(ValueError):
+            add_data(1, measurements, "test.json")
+
+    measurements = {
+        "patient_id": "1",
+        "temp": "97",
+        "pulse": "60",
+        "blood_pressure": "110",
+        "oxygen_level": "90",
+        "weight": "130",
+        "glucose_level": "100"
+    }
+
+    def test_no_input_id(self):
+        with pytest.raises(TypeError):
+            add_data(measurements, "test.json")
+
+    def test_no_output_file(self):
+        with pytest.raises(TypeError):
+            add_data(1, measurements)
+
+    def test_invalid_userid(self):
+        with pytest.raises(KeyError):
+            add_data(1000, measurements, "test.json")
+
+    def test_invalid_input(self):
+        measurements["pulse"] = -1
+        with pytest.raises(ValueError):
+            add_data(1, measurements, "test.json")
+
+    def test_invalid_input_type(self):
+        measurements["blood_pressure"] = 'abc'
+        with pytest.raises(ValueError):
+            add_data(1, measurements, "test.json")
+
+    def test_invalid_input_range(self):
+        measurements["oxygen_level"] = 200
+        with pytest.raises(ValueError):
+            add_data(1, measurements, "test.json")

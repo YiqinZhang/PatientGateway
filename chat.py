@@ -5,4 +5,4 @@ class Chat:
         self.content = content
 
     def send_message(self, sender, receiver, content):
-        
+        return
