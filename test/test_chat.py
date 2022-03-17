@@ -1,5 +1,5 @@
 import pytest
-from chat import *
+# from chat import *
 
 
 class TestDevice:
