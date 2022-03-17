@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, request
 from flask import render_template
 from flask import url_for, jsonify, redirect
@@ -6,6 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
 
+import chat
 import device
 import user
 
@@ -89,6 +92,29 @@ def add_device_data(user_id):
         except ValueError as e:
             abort(404, description=e)
     return render_template('device.html', user_id=user_id)
+
+
+@app.route('/chat/<user_id>', methods=['POST', 'GET'])
+def send_chat(user_id):
+    if request.method == 'POST':
+        to = request.form['To']
+        with open('user.json', 'r') as f:
+            data = json.load(f)
+            users = data['users']
+        if to not in users:
+            return 'Receiver Not Exist!'
+        message = request.form['message']
+
+        f.close()
+        if message:
+            new_chat = chat.Chat(sender=user_id, to=to, message=message)
+            try:
+                chat.send_chat(new_chat)
+            except ValueError as e:
+                abort(400, description=e)
+        else:
+            return "Message can't be empty!"
+    return redirect(url_for('main', name=user_id))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 import pytest
 import requests
 from user import *
-
+#
 BASE = "http://127.0.0.1:5000/"
 
 user_data = [{"name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype": "A", "height": 180, "weight": 170},
@@ -22,7 +22,7 @@ class TestUser:
         with pytest.raises(KeyError):
             abort_if_id_exists(1)
 
-    def test_get(self):
+    def test_login(self):
         response = requests.get(BASE + "user/1")
         result = response.json()
         assert response.status_code == 200
