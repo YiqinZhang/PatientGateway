@@ -1,6 +1,6 @@
 import pytest
 import requests
-from user import *
+# from user import *
 #
 BASE = "http://127.0.0.1:5000/"
 
