@@ -1,6 +1,6 @@
 import requests
 from flask import request, Flask
-
+import app
 
 BASE = "http://127.0.0.1:5000/"
 
