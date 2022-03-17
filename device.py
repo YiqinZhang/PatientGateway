@@ -22,7 +22,7 @@ def add_data(user_id, measurements, filename):
     if not exist:
         raise KeyError(f'Cannot find user {user_id}')
 
-    if measurements is None:
+    if measurements is None or len(measurements) == 0:
         raise ValueError("Measurements data is Empty")
 
     for k, v in measurements.items():

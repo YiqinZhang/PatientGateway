@@ -1,10 +1,10 @@
 import requests
-from flask import request
-from app import app
-import pytest
+from flask import request, Flask
 
 
 BASE = "http://127.0.0.1:5000/"
+
+app = Flask(__name__)
 
 
 class TestRequest:
