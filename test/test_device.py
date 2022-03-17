@@ -1,16 +1,17 @@
-import requests
 import pytest
 from device import *
 
 
 class TestDevice:
-    measurements = {}
-
     def test_no_input_data(self):
         with pytest.raises(ValueError):
-            add_data(1, measurements, "test.json")
+            add_data(1, None, "test.json")
 
-    measurements = {
+    def test_empty_input_data(self):
+        with pytest.raises(ValueError):
+            add_data(1, {}, "test.json")
+
+    test_data = {
         "patient_id": "1",
         "temp": "97",
         "pulse": "60",
@@ -21,28 +22,79 @@ class TestDevice:
     }
 
     def test_no_input_id(self):
+        test_data = {
+            "patient_id": "1",
+            "temp": "97",
+            "pulse": "60",
+            "blood_pressure": "110",
+            "oxygen_level": "90",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(TypeError):
-            add_data(measurements, "test.json")
+            add_data(test_data, "test.json")
 
     def test_no_output_file(self):
+        test_data = {
+            "patient_id": "1",
+            "temp": "97",
+            "pulse": "60",
+            "blood_pressure": "110",
+            "oxygen_level": "90",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(TypeError):
-            add_data(1, measurements)
+            add_data(1, test_data)
 
     def test_invalid_userid(self):
+        test_data = {
+            "patient_id": "1000",
+            "temp": "97",
+            "pulse": "60",
+            "blood_pressure": "110",
+            "oxygen_level": "90",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(KeyError):
-            add_data(1000, measurements, "test.json")
+            add_data(1000, test_data, "test.json")
 
     def test_invalid_input(self):
-        measurements["pulse"] = -1
+        test_data = {
+            "patient_id": "1",
+            "temp": "97",
+            "pulse": "-1",
+            "blood_pressure": "110",
+            "oxygen_level": "90",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(ValueError):
-            add_data(1, measurements, "test.json")
+            add_data(1, test_data, "test.json")
 
     def test_invalid_input_type(self):
-        measurements["blood_pressure"] = 'abc'
+        test_data = {
+            "patient_id": "1",
+            "temp": "97",
+            "pulse": "60",
+            "blood_pressure": "abcd",
+            "oxygen_level": "90",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(ValueError):
-            add_data(1, measurements, "test.json")
+            add_data(1, test_data, "test.json")
 
     def test_invalid_input_range(self):
-        measurements["oxygen_level"] = 200
+        test_data = {
+            "patient_id": "1",
+            "temp": "97",
+            "pulse": "60",
+            "blood_pressure": "110",
+            "oxygen_level": "2000",
+            "weight": "130",
+            "glucose_level": "100"
+        }
         with pytest.raises(ValueError):
-            add_data(1, measurements, "test.json")
+            add_data(1, test_data, "test.json")
