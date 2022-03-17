@@ -1,5 +1,5 @@
 import pytest
-from device import *
+# from device import *
 
 
 class TestDevice:
