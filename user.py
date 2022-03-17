@@ -3,7 +3,6 @@ import json
 from flask import Flask
 from flask_restful import Api, Resource, reqparse, abort
 
-
 app = Flask(__name__)
 api = Api(app)
 user_put_args = reqparse.RequestParser()
@@ -19,6 +18,7 @@ with open('user.json', 'r') as f:
     data = json.load(f)
     users = data['users']
     # print(users)
+
 
 # users = {1: {"name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype":"A", "height": 180,"weight": 170},
 #          2: {"name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype":"B", "height": 166,"weight": 120},
@@ -60,22 +60,22 @@ class User(Resource):
         return '', 204
 
 
-f.close()
+api.add_resource(User, "/user/<int:user_id>")
 
 
-class Patient:
+class User:
     def __init__(self, user_id, name, dob):
         self.patient_id = user_id
         self.dob = dob
         self.name = name
 
-    def get_patient(self, user_id):
+    def get_user(self, user_id):
+        abort_if_user_id_doesnt_exist(user_id)
         if user_id in users:
             return users[user_id]
-        else:
-            return f'Cannot find user {user_id}'
 
-    def add_patient(self, user_id):
+    def add_user(self, user_id):
+        abort_if_id_exists(user_id)
         new_patient = {
             "patient_id": user_id,
             "bod": None,
@@ -89,7 +89,7 @@ class Patient:
         return new_patient
 
 
-api.add_resource(User, "/user/<int:user_id>")
+
 
 if __name__ == "__main__":
     app.run()

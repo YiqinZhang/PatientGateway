@@ -69,7 +69,6 @@ try:
 except ValueError as e:
     abort(404, description=e)
 '''
-f.close()
 
 
 # class Device:

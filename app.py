@@ -75,6 +75,15 @@ def main(name):
     return render_template('main.html', name=name)
 
 
+@app.route("/user/add/<user_id>", methods=['POST', 'GET'])
+def add_user(user_id):
+    try:
+        user.add_user(user_id)
+        return jsonify(user.get_user(user_id))
+    except ValueError as e:
+        abort(400, description=e)
+
+
 @app.route('/device/<user_id>', methods=['POST', 'GET'])
 def add_device_data(user_id):
     measurements = {}
@@ -105,7 +114,6 @@ def send_chat(user_id):
             return 'Receiver Not Exist!'
         message = request.form['message']
 
-        f.close()
         if message:
             new_chat = chat.Chat(sender=user_id, to=to, message=message)
             try:
