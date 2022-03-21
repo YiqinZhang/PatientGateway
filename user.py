@@ -65,11 +65,48 @@ def add_user(user_id, name, dob):
     return new_patient
 
 
+def is_valid_range(measurements):
+    for k, v in measurements.items():
+        if v is None:
+            continue
+        if k == 'blood_type' and v not in ['A', 'B', 'AB', 'O', 'other']:
+            raise ValueError(f"Illegal blood_type data {k} ")
+
+        elif k == 'temp':
+            if float(v) < 96 or float(v) > 101:
+                raise ValueError(f"Illegal temperature data {k}")
+        elif k == 'pulse':
+            v = float(v)
+            if v < 50 or v > 110:
+                raise ValueError(f"Illegal {k} data")
+        elif k == 'systolic_blood_pressure':
+            v = float(v)
+            if v > 200 or v < 100:
+                raise ValueError(f"Illegal {k} data")
+        elif k == 'diastolic_blood_pressure':
+            v = float(v)
+            if v > 150 or v < 60:
+                raise ValueError(f"Illegal {k} data")
+        elif k == 'oxygen_level':
+            v = float(v)
+            if v < 90 or v > 100:
+                raise ValueError(f"Illegal {k} data")
+        elif k == 'weight':
+            v = float(v)
+            if v < 5 or v > 300:
+                raise ValueError(f"Illegal {k} data")
+        elif k == 'glucose_level':
+            v = float(v)
+            if v < 50 or v > 250:
+                raise ValueError(f"Illegal {k} data")
+    return True
+
+
 def modify_user(user_id, update):
     for k, v in update.items():
         if k not in indicators:
             raise KeyError(f"Invalid patient indicator {k}")
-    if device.is_valid_range(update):
+    if is_valid_range(update):
         cur = get_user(user_id)
         if not cur:
             raise ValueError(f"User {user_id} does not Exist")
@@ -96,7 +133,6 @@ def del_user(user_id):
         user_dict.update({"users": data})
         json.dump(user_dict, f, indent=2)
     return deleted
-
 
 # print(get_user(1))
 # print(add_user(4, 'rose', '1/11/2001'))
