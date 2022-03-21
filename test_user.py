@@ -1,13 +1,9 @@
 import pytest
 import requests
-import user 
+import user
 
 
 # BASE = "http://127.0.0.1:5000/"
-
-# user_data = [{"name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype": "A", "height": 180, "weight": 170},
-#              {"name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype": "B", "height": 166, "weight": 120},
-#              {"name": "adam", "DoB": "02/22/2002", "gender": "female", "bloodtype": "AB", "height": 178, "weight": 160}]
 
 
 class TestUser:
@@ -22,6 +18,57 @@ class TestUser:
     def test_abort_if_id_exists(self):
         with pytest.raises(KeyError):
             user.abort_if_id_exists(1)
+
+    def test_get_user_id_doesnt_exist(self):
+        with pytest.raises(KeyError):
+            test_user = user.get_user(1000)
+
+    def test_get_user(self):
+        test_user = user.get_user(1)
+        assert test_user['user_id'] == 1
+
+    def test_add_user_id_exists(self):
+        with pytest.raises(KeyError):
+            user.add_user(1, 'jack', '2/22/2000')
+
+    def test_add_user(self):
+        user.del_user(500)
+        test_user = user.add_user(500, 'jack', '2/22/2000')
+        assert test_user['user_id'] == 500
+
+    def test_modify_user_id_doesnt_exist(self):
+        updates = {
+            "systolic_blood_pressure": 120,
+            "diastolic_blood_pressure": 80,
+            "blood_type": "O",
+            "oxygen_level": 97,
+            "weight": 138,
+            "glucose_level": 120,
+        }
+        with pytest.raises(KeyError):
+            test_user = user.modify_user(200, updates)
+
+    def test_modify_user(self):
+        updates = {
+            "systolic_blood_pressure": 120,
+            "diastolic_blood_pressure": 80,
+            "blood_type": "O",
+            "oxygen_level": 97,
+            "weight": 138,
+            "glucose_level": 120,
+        }
+        test_user = user.modify_user(1, updates)
+        assert test_user["blood_type"] == 'O'
+
+    def test_del_user_id_doesnt_exist(self):
+        with pytest.raises(KeyError):
+            test_user = user.del_user(1000)
+
+    def test_del_user(self):
+        add_user = user.add_user(350, 'jack', '2/22/2000')
+        deleted_user = user.del_user(350)
+        assert deleted_user['user_id'] == 350
+
 
     # def test_login(self):
     #     response = requests.get(BASE + "user/1")
