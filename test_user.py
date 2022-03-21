@@ -32,7 +32,7 @@ class TestUser:
             user.add_user(1, 'jack', '2/22/2000')
 
     def test_add_user(self):
-        user.del_user(500)
+
         test_user = user.add_user(500, 'jack', '2/22/2000')
         assert test_user['user_id'] == 500
 
