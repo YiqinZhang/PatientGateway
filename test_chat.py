@@ -2,7 +2,7 @@ import pytest
 import chat
 
 
-class TestDevice:
+class TestChat:
     def test_chat_no_contact(self):
         with pytest.raises(TypeError):
             chat.Chat("no contact")
@@ -23,7 +23,7 @@ class TestDevice:
         with pytest.raises(ValueError):
             chat.send_chat(chat.Chat(1, 2, ""))
 
-    def test_send_chat_empty_message(self):
+    def test_send_chat(self):
         content = chat.send_chat(chat.Chat(1, 2, "sent"))
         assert content["sender"] == 1
         assert content["to"] == 2
