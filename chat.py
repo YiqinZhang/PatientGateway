@@ -48,7 +48,7 @@ def send_chat(chat):
         chat_dict[str(num)] = content
         json.dump(chat_dict, f, indent=2)
 
-    return chat_dict
+    return content
 
 
 # send_chat(Chat(1, 2, "The First message"))
