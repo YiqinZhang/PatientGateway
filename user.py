@@ -99,23 +99,23 @@ def del_user(user_id):
 
 
 # print(get_user(1))
-print(add_user(4, 'rose', '1/11/2001'))
-update1 = {
-    "temp": "97",
-    "pulse": "66",
-    "oxygen_level": 99,
-    "weight": 150,
-    "glucose_level": 99
-}
-update2 = {
-    "gender": "male",
-    "systolic_blood_pressure": 120,
-    "diastolic_blood_pressure": 80,
-    "blood_type": "O",
-    "oxygen_level": 97,
-    "height": 138,
-    "glucose_level": 120,
-}
-print(modify_user(4, update1))
-print(modify_user(5, update2))
+# print(add_user(4, 'rose', '1/11/2001'))
+# update1 = {
+#     "temp": "97",
+#     "pulse": "66",
+#     "oxygen_level": 99,
+#     "weight": 150,
+#     "glucose_level": 99
+# }
+# update2 = {
+#     "gender": "male",
+#     "systolic_blood_pressure": 120,
+#     "diastolic_blood_pressure": 80,
+#     "blood_type": "O",
+#     "oxygen_level": 97,
+#     "height": 138,
+#     "glucose_level": 120,
+# }
+# print(modify_user(4, update1))
+# print(modify_user(5, update2))
 # print(del_user(4))
