@@ -3,6 +3,7 @@ import json
 import user
 from datetime import datetime
 
+
 with open('inbox.json', 'r') as f:
     chat_dict = json.load(f)
     if not chat_dict:
@@ -72,3 +73,5 @@ def send_chat(chat):
 #         user_dict.update({"users": data})
 #         json.dump(user_dict, f, indent=2)
 #     return deleted
+
+

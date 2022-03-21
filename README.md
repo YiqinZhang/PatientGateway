@@ -19,13 +19,35 @@ Remote Health Application System
 - I, the medical professional should be able to read transcription of the voice messages or video messages and should be able to search them.
 - I, the medical professional, should be able to see in color medical terms in the message.
 - I, AI developer, should be able to access the data anonymized. 
-- 
+
+
+
+
 
 ## Branches
 
 Main branch: release ready code.
 
 Module branches: module branches to add and implement new feature. After passing the test, merged into the main brach.
+
+
+
+
+
+## API
+
+| Page                | Endpoint            | Method |
+| ------------------- | ------------------- | ------ |
+| index               | /                   | [GET]  |
+| login               | /login              | [POST] |
+| register            | /register           | [POST] |
+| mian                | /main               | [POST] |
+| user                | /user/<user_id>     | [POST] |
+| add user            | /user/add/<user_id> | [POST] |
+| add device data     | /device/<user_id>   | [POST] |
+| send chat           | /chat/<user_id>     | [POST] |
+| get chat history    | /chat               | [GET]  |
+| delete chat history | /chat/del           | [POST] |
 
 
 

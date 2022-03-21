@@ -1,6 +1,46 @@
 {
- "users": [
- {"user_id": 1, "name": "tim", "DoB": "07/19/1998", "gender": "male", "bloodtype":"A", "height": 180,"weight": 170},
- {"user_id": 2, "name": "eve", "DoB": "12/24/2004", "gender": "female", "bloodtype":"B", "height": 166,"weight": 120},
- {"user_id": 3, "name": "adam", "DoB": "02/22/2002", "gender": "female", "bloodtype":"AB", "height": 178,"weight": 160}
- ]}
+  "users": [
+    {
+      "user_id": 1,
+      "name": "tim",
+      "DoB": "07/19/1998",
+      "gender": "male",
+      "blood_type": "A",
+      "height": 180,
+      "weight": 170
+    },
+    {
+      "user_id": 2,
+      "name": "eve",
+      "DoB": "12/24/2004",
+      "gender": "female",
+      "blood_type": "B",
+      "height": 166,
+      "weight": 120
+    },
+    {
+      "user_id": 3,
+      "name": "adam",
+      "DoB": "02/22/2002",
+      "gender": "female",
+      "blood_type": "AB",
+      "height": 178,
+      "weight": 160
+    },
+    {
+      "user_id": 5,
+      "name": "jack",
+      "dob": "2/22/2000",
+      "gender": "male",
+      "height": 138,
+      "blood_type": "O",
+      "temp": "97",
+      "pulse": "66",
+      "systolic_blood_pressure": 120,
+      "diastolic_blood_pressure": 80,
+      "oxygen_level": 97,
+      "weight": 120,
+      "glucose_level": 120
+    }
+  ]
+}
