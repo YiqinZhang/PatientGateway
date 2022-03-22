@@ -3,7 +3,6 @@ import json
 import user
 from datetime import datetime
 
-
 with open('inbox.json', 'r') as f:
     chat_dict = json.load(f)
     if not chat_dict:
@@ -48,17 +47,22 @@ def send_chat(chat):
         chat_dict[str(num)] = content
         json.dump(chat_dict, f, indent=2)
 
-    return chat_dict
+    return content
 
 
 # send_chat(Chat(1, 2, "The First message"))
 # send_chat(Chat(2, 3, "Second message sent"))
-# def get_chat_history(user_id):
-#     abort_if_user_id_doesnt_exist(user_id)
-#     for user in data:
-#         if user['user_id'] == user_id:
-#             return user
-#
+def get_chat_history(user_id):
+    user.abort_if_user_id_doesnt_exist(user_id)
+    history = {}
+    for k, v in chat_dict.items():
+        if user_id == v["sender"] or user_id == v["to"]:
+            # history.update({k, v})
+            history[k] = v
+    return history
+
+
+# print(get_chat_history(1))
 #
 # def del_chat_history(user_id):
 #     abort_if_user_id_doesnt_exist(user_id)
@@ -73,5 +77,3 @@ def send_chat(chat):
 #         user_dict.update({"users": data})
 #         json.dump(user_dict, f, indent=2)
 #     return deleted
-
-

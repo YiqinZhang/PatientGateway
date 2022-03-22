@@ -2,33 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Data form Device</title>
+    <title>Device</title>
 </head>
 <body>
-<form action=" ">
+    <h1>Data From Device</h1>
+    <form action=" ", method="post">
     Patient ID:
-    <input type = "text" name = "patient_id">
+    <input type = "text" name = "patient_id" value="{{
+          request.form.patient_id}}">
     <br>
-    Temperature:
-    <input type = "text" name = "temperature">
-    <br>
-    Pulse:
-    <input type = "text" name = "pulse">
-    <br>
-    Blood Pressure:
-    <input type = "text" name = "blood pressure">
-    <br>
-    Oxygen Level:
-    <input type = "text" name = "oxygen level">
+    Height:
+    <input type = "text" name = "height" value="{{
+      request.form.height}}">
     <br>
     Weight:
-    <input type = "text" name = "weight">
+    <input type = "text" name = "weight" value="{{
+      request.form.weight}}">
+    <br>
+    Blood Type
+    <input type = "text" name = "blood type" value="{{
+      request.form.blood_type}}">
+    <br>
+    Temperature:
+    <input type = "text" name = "temperature" value="{{
+      request.form.temperature}}">
+    <br>
+    Pulse:
+    <input type = "text" name = "pulse" value="{{
+      request.form.pulse}}">
+    <br>
+    Systolic Blood Pressure
+    <input type = "text" name = "systolic blood pressure" value="{{
+      request.form.systolic_blood_pressure}}">
+    <br>
+    Diastolic Blood Pressure
+    <input type = "text" name = "diastolic blood pressure" value="{{
+      request.form.diastolic_blood_pressure}}">
+    <br>
+    Oxygen Level:
+    <input type = "text" name = "oxygen level" value="{{
+      request.form.oxygen_level}}">
     <br>
     Glucose Level:
-    <input type = "text" name = "glucose level">
+    <input type = "text" name = "glucose level" value="{{
+      request.form.glucose_level}}">
     <br>
     <input type = "submit" name = "submit">
-    <br></form>
+    <br>
+</form>
 
 </body>
 </html>
