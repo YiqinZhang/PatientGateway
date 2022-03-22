@@ -26,7 +26,6 @@ class TestDevice:
             "patient_id": "1",
             "temp": "97",
             "pulse": "60",
-            "blood_pressure": "110",
             "oxygen_level": "90",
             "weight": "130",
             "glucose_level": "100"
@@ -39,7 +38,6 @@ class TestDevice:
             "patient_id": "1",
             "temp": "97",
             "pulse": "60",
-            "blood_pressure": "110",
             "oxygen_level": "90",
             "weight": "130",
             "glucose_level": "100"
@@ -52,7 +50,6 @@ class TestDevice:
             "patient_id": "1000",
             "temp": "97",
             "pulse": "60",
-            "blood_pressure": "110",
             "oxygen_level": "90",
             "weight": "130",
             "glucose_level": "100"
@@ -65,7 +62,6 @@ class TestDevice:
             "patient_id": "1",
             "temp": "97",
             "pulse": "-1",
-            "blood_pressure": "110",
             "oxygen_level": "90",
             "weight": "130",
             "glucose_level": "100"
@@ -78,7 +74,7 @@ class TestDevice:
             "patient_id": "1",
             "temp": "97",
             "pulse": "60",
-            "blood_pressure": "abcd",
+            "blood_type": "333",
             "oxygen_level": "90",
             "weight": "130",
             "glucose_level": "100"
