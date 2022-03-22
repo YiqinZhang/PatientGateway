@@ -1,0 +1,13 @@
+{
+    "user_id": 0,
+    "name": "admin",
+    "DoB": "07/19/1998",
+    "gender": "male",
+    "height": 180,
+    "weight": 138,
+    "systolic_blood_pressure": 120,
+    "diastolic_blood_pressure": 80,
+    "blood_type": "O",
+    "oxygen_level": 97,
+    "glucose_level": 120
+}

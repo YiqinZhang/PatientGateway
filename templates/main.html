@@ -5,7 +5,69 @@
     <title>Patient Mainpage </title>
 </head>
 <body>
-Hi,
-{{name}}
+    <h1>Hi, {{name}}!</h1>
+    <br>
+    <form action="{{url_for('main', name=name)}}", method="post">
+        Date of birth:
+        <input type = "text" name = "dob" value="{{
+          request.form.dob }}">
+        <br>
+        Gender:
+        <input type = "text" name = "gender" value="{{
+          request.form.gender}}">
+        <br>
+            Height:
+        <input type = "text" name = "height" value="{{
+          request.form.height}}">
+        <br>
+        Weight:
+        <input type = "text" name = "weight" value="{{
+          request.form.weight}}">
+        <br>
+        Blood Type
+        <input type = "text" name = "blood type" value="{{
+          request.form.blood_type}}">
+        <br>
+        Temperature:
+        <input type = "text" name = "temperature" value="{{
+          request.form.temperature}}">
+        <br>
+        Pulse:
+        <input type = "text" name = "pulse" value="{{
+          request.form.pulse}}">
+        <br>
+        Systolic Blood Pressure
+        <input type = "text" name = "systolic blood pressure" value="{{
+          request.form.systolic_blood_pressure}}">
+        <br>
+        Diastolic Blood Pressure
+        <input type = "text" name = "diastolic blood pressure" value="{{
+          request.form.diastolic_blood_pressure}}">
+        <br>
+        Oxygen Level:
+        <input type = "text" name = "oxygen level" value="{{
+          request.form.oxygen_level}}">
+        <br>
+        Glucose Level:
+        <input type = "text" name = "glucose level" value="{{
+          request.form.glucose_level}}">
+        <br>
+        <input type = "submit" name = "submit">
+    </form>
+
+    <h2>Chat Box</h2>
+    <form action="{{url_for('main', name=name)}}", method="post">
+        To:
+        <input type = "text" name = "to" value="{{
+          request.form.to }}">
+        <br>
+        Message:
+        <input type = "text" name = "message" value="{{
+          request.form.message}}">
+        <br>
+
+        <input class="btn btn-default" type="submit" value="Send"><br>
+    </form>
+
 </body>
 </html>

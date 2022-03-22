@@ -1,6 +1,7 @@
 import pytest
 import requests
 import user
+import device
 
 
 # BASE = "http://127.0.0.1:5000/"
@@ -65,14 +66,9 @@ class TestUser:
             test_user = user.del_user(1000)
 
     def test_del_user(self):
-        add_user = user.add_user(350, 'jack', '2/22/2000')
+        user.add_user(350, 'jack', '2/22/2000')
         deleted_user = user.del_user(350)
         assert deleted_user['user_id'] == 350
 
 
-    # def test_login(self):
-    #     response = requests.get(BASE + "user/1")
-    #     result = response.json()
-    #     assert response.status_code == 200
-    #     assert result["user_id"] == 2
 

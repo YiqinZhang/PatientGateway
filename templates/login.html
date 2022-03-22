@@ -5,16 +5,17 @@
     <title>Login Page</title>
 </head>
 <body>
-<form action=" ">
-    Username:
-    <input type = "text" name = "name">
-    <br>
-    Passward:
-    <input type = "password" name = "password">
-    <br>
-    <input type = "submit" name = "submit">
-    <br>
-</form>
+    <h1>Please Register Here!</h1>
+    <form action=" ", method="post">
+        Username:
+            <input type="text" placeholder="Username" name="username" value="{{
+              request.form.username }}"><br>
+        Password:
+            <input type="password" placeholder="Password" name="password" value="{{
+              request.form.password }}"><br>
+            <input class="btn btn-default" type="submit" value="Login"><br>
+
+    </form>
 
 </body>
 </html>
