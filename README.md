@@ -1,26 +1,18 @@
 # Patient Gateway
 ## Product Mission
 
-Remote Health Application System
+A Remote Health Application System provides a platform where patients can manage their medical data, make appointments, and query with doctors. 
+Meanwhile, medical professionals can also manage their appointments, assign examination with devices, updates patient results, and communicate with them.
 
 
 
 ## User Stories
 
-- I, the admin, should be able to add a patient, doctor or nurse.
-- I, admin or medical professional, have a calendar that I can maintain, show when I can have appointments, and manage all aspects of my calendar.
-- I, the patient, should be able to see when I can have an appointment with my doctor and should be able to edit it.
-- I, the medical professional, should be able to input all my patients vitals.
-- I, the medical professional, should be able to assign a set of connected devices (IoT devices) to the patient where they devices can automatically update the patient Vitals.
-- I, the Admin, should be able to add devices and precure devices to be added to the system.
-- I, the admin or medical professional, should be able to re-assign devices to other patients.
-- I, the patient should be able to leave voice or video message to the medical professional from the web or mobile application.
-- I, the patient, should be able to upload images for the medical team to review.
-- I, the medical professional should be able to read transcription of the voice messages or video messages and should be able to search them.
-- I, the medical professional, should be able to see in color medical terms in the message.
-- I, AI developer, should be able to access the data anonymized. 
-
-
+- I, the admin, should be able to add a patient, doctor, or nurse. I can manage events on the calendar and add devices to the system.
+- I,  the medical professional, have a calendar that I can maintain, show when I can have appointments, and manage all aspects of my calendar.
+- I, the medical professional, should be able to input all my patients' vitals and assign a set of IoT devices to the patient where the devices can automatically update the patient's Vitals.
+- I, the patient, should be able to make an appointment with my doctor and edit it. I can leave voice or video messages to the doctor.
+- I, an AI developer, should be able to access the data anonymized. 
 
 
 
@@ -28,9 +20,7 @@ Remote Health Application System
 
 Main branch: release ready code.
 
-Module branches: module branches to add and implement new feature. After passing the test, merged into the main brach.
-
-
+Module branches: module branches to add and implement new feature. After passing the test, merged into the main branch.
 
 
 
@@ -46,12 +36,18 @@ Module branches: module branches to add and implement new feature. After passing
 | add user            | /user/add/<user_id> | [POST] |
 | add device data     | /device/<user_id>   | [POST] |
 | send chat           | /chat/<user_id>     | [POST] |
-| get chat history    | /chat               | [GET]  |
+| get chat history    | /chat/history/<>    | [GET]  |
 | delete chat history | /chat/del           | [POST] |
 
 
 
 ## Components
+
+##### Login page
+
+![](./img/login.png)
+
+
 
 ### 1. Device Module
 
@@ -77,7 +73,7 @@ Push mechanisms. Once the results or updates come out, they can be sent out imme
 
 **Database schema**
 
-![](/img/device_db.png)
+![](./img/device_db.png)
 
 
 

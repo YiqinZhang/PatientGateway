@@ -1,26 +1,37 @@
-import json
-
 from flask import Flask, request, Response
 from flask import render_template
-from flask import url_for, jsonify, redirect
-from flask_restful import Api, reqparse, abort
+from flask import url_for, jsonify, redirect, abort
+# from flask_restful import Api, reqparse,
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
-
+import sqlite3
 import chat
 import device
 import user
+import json
 
 app = Flask(__name__)
-api = Api(app)
-user_put_args = reqparse.RequestParser()
-app.config['SECRET_KEY'] = 'mysecretkey'
+# api = Api(app)
+# user_put_args = reqparse.RequestParser()
+# app.config['SECRET_KEY'] = 'mysecretkey'
+
+
+# @app.route('/')
+# def index():
+#     return "Welcome to the Health Platform!"
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 @app.route('/')
 def index():
-    return "Welcome to the Patient Gateway!"
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM posts').fetchall()
+    conn.close()
+    return render_template('index.html', posts=posts)
 
 
 class Register(FlaskForm):
@@ -49,8 +60,6 @@ def register():
             print('Validation failed')
         return render_template('register.html', form=form)
 
-
-# 存user table，session table， 计时
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -173,4 +182,4 @@ def chat_history(name):
 
 if __name__ == "__main__":
     # app.run()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=80, debug=True)
