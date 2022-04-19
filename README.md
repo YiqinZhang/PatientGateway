@@ -1,26 +1,32 @@
 # Patient Gateway
 ## Product Mission
 
-Remote Health Application System
+A Remote Health Application System provides a platform where patients can manage their medical data, make appointments, and query with doctors. 
+Meanwhile, medical professionals can also manage their appointments, assign examination with devices, updates patient results, and communicate with them.
 
 
 
 ## User Stories
 
-- I, the admin, should be able to add a patient, doctor or nurse.
-- I, admin or medical professional, have a calendar that I can maintain, show when I can have appointments, and manage all aspects of my calendar.
-- I, the patient, should be able to see when I can have an appointment with my doctor and should be able to edit it.
-- I, the medical professional, should be able to input all my patients vitals.
-- I, the medical professional, should be able to assign a set of connected devices (IoT devices) to the patient where they devices can automatically update the patient Vitals.
-- I, the Admin, should be able to add devices and precure devices to be added to the system.
-- I, the admin or medical professional, should be able to re-assign devices to other patients.
-- I, the patient should be able to leave voice or video message to the medical professional from the web or mobile application.
-- I, the patient, should be able to upload images for the medical team to review.
-- I, the medical professional should be able to read transcription of the voice messages or video messages and should be able to search them.
-- I, the medical professional, should be able to see in color medical terms in the message.
-- I, AI developer, should be able to access the data anonymized. 
-
-
+- Administrators
+  - Add users to the system and change their roles ('admin', 'doctor', 'nurse', 'patient', 'family', 'developer').
+  - Add devices to the system and modify devices (add, enable, disable, remove).
+  - Add data and modify data.
+  - Manage events on the calendar.
+- Medical professionals (nurses and doctors)
+  - Browse patients data.
+  - Assign devices to patients.
+  - Enter medical data for patients. 
+  - Chat with patients.
+  - Access transcriptions of  patients' video or voice messages.
+  - Manage their appointements calendar.
+- Patients
+  - Edit account profile.
+  - Access their medical measurements.
+  - Communicate with health provider via text, video or voice message.
+  - Schedule appointments with their health provider and edit them.
+- Developers
+  - access anonymized data.
 
 
 
@@ -28,9 +34,7 @@ Remote Health Application System
 
 Main branch: release ready code.
 
-Module branches: module branches to add and implement new feature. After passing the test, merged into the main brach.
-
-
+Module branches: module branches to add and implement new feature. After passing the test, merged into the main branch.
 
 
 
@@ -41,17 +45,23 @@ Module branches: module branches to add and implement new feature. After passing
 | index               | /                   | [GET]  |
 | login               | /login              | [POST] |
 | register            | /register           | [POST] |
-| mian                | /main               | [POST] |
+| main                | /main               | [POST] |
 | user                | /user/<user_id>     | [POST] |
 | add user            | /user/add/<user_id> | [POST] |
 | add device data     | /device/<user_id>   | [POST] |
 | send chat           | /chat/<user_id>     | [POST] |
-| get chat history    | /chat               | [GET]  |
+| get chat history    | /chat/history/<>    | [GET]  |
 | delete chat history | /chat/del           | [POST] |
 
 
 
 ## Components
+
+##### Login page
+
+![](./img/login.png)
+
+
 
 ### 1. Device Module
 
@@ -59,13 +69,24 @@ Define Interface for devices to ingest data into the system
 
 ##### Data Fields 
 
-(including knowing how to attribute the data to a patient)
+- Data types and units:
+  - Temperature: ("C", "F")
+  - Weight: ("kgs", "lbs")
+  - Pulse:("bpm")
+  - Systolic blood pressure: ("mmHg")
+  - Diastolic blood pressure: ("mmHg")
+  - Glucose level: ("mg/dL")
+  - Oxygen level: (%)
 
-Include Temperature, blood pressure, pulse, oximeter, weight and Glucometer and data your system can handle
+- Error Conditions:
 
-##### Error Conditions
+  - Invalid key
 
+  - Invalid device type
 
+  - Invalid units for device
+
+  - Invalid measurements
 
 ##### Pull or Push mechanisms
 
@@ -73,14 +94,20 @@ Push mechanisms. Once the results or updates come out, they can be sent out imme
 
 
 
-
-
 **Database schema**
 
-![](/img/device_db.png)
+![](./img/device_db.png)
 
 
 
 ### 2. Chat Module
 
-one-on-one chat
+The Chat Module allows patients to communicate with health providers via text, video, or voice message.
+
+The screenshot below shows the chat module.
+
+![](./img/send_chat.png)
+
+The screenshot below shows the chat history, which stored in the SQLite database.
+
+![](./img/chat_history.png)

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="display-4">{% block title %} Chat History {% endblock %}</h1>
+    <br>
+    {% for post in posts %}
+        <a href="#">
+            <div class="row">
+              <div class="col">
+                  <h3 >From: id {{ post['sender_id'] }}</h3>
+              </div>
+                <div class="col">
+                  <h3>To: id {{ post['to_id'] }}</h3>
+                </div>
+            </div>
+            <h5 class="text-black-50">{{ post['transcript'] }}</h5>
+        </a>
+<!--        <span class="badge badge-primary">{{ post['created'] }}</span>-->
+        <span class="badge badge-success">{{ post['created'] }}</span>
+        <hr>
+    {% endfor %}
+{% endblock %}
+

@@ -1,33 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat</title>
-</head>
-<body>
-    <h1>Chat Box</h1>
-    <div id="myData"></div>
-    <script>
-        fetch(file)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                appendData(data);
-            })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
-        function appendData(data) {
-            var mainContainer = document.getElementById("myData");
-            for (let key in data) {
-                var div = document.createElement("div");
-                div.innerHTML = key + ': ' + data[key];
-                mainContainer.appendChild(div);
-            }
-        }
-    </script>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="display-4">{% block title %} Send a New Message {% endblock %}</h1>
+    <br>
+<form method="post">
+    <div class="form-group">
+        <label for="To">To</label>
+        <input type="text" name="To"
+               placeholder="To" class="form-control"
+               value="{{ request.form['To'] }}"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="Message">Message</label>
+        <textarea name="Message" placeholder="Message content"
+                  class="form-control">{{ request.form['Message'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="formFile" class="form-label">File input</label>
+      <input class="form-control" type="file" id="formFile">
+    </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Voice File input</label>
+      <input class="form-control" type="file" id="form" multiple>
+    </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Video File input</label>
+      <input class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>
+
+</form>
+{% endblock %}
