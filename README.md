@@ -8,11 +8,25 @@ Meanwhile, medical professionals can also manage their appointments, assign exam
 
 ## User Stories
 
-- I, the admin, should be able to add a patient, doctor, or nurse. I can manage events on the calendar and add devices to the system.
-- I,  the medical professional, have a calendar that I can maintain, show when I can have appointments, and manage all aspects of my calendar.
-- I, the medical professional, should be able to input all my patients' vitals and assign a set of IoT devices to the patient where the devices can automatically update the patient's Vitals.
-- I, the patient, should be able to make an appointment with my doctor and edit it. I can leave voice or video messages to the doctor.
-- I, an AI developer, should be able to access the data anonymized. 
+- Administrators
+  - Add users to the system and change their roles ('admin', 'doctor', 'nurse', 'patient', 'family', 'developer').
+  - Add devices to the system and modify devices (add, enable, disable, remove).
+  - Add data and modify data.
+  - Manage events on the calendar.
+- Medical professionals (nurses and doctors)
+  - Browse patients data.
+  - Assign devices to patients.
+  - Enter medical data for patients. 
+  - Chat with patients.
+  - Access transcriptions of  patients' video or voice messages.
+  - Manage their appointements calendar.
+- Patients
+  - Edit account profile.
+  - Access their medical measurements.
+  - Communicate with health provider via text, video or voice message.
+  - Schedule appointments with their health provider and edit them.
+- Developers
+  - access anonymized data.
 
 
 
@@ -31,7 +45,7 @@ Module branches: module branches to add and implement new feature. After passing
 | index               | /                   | [GET]  |
 | login               | /login              | [POST] |
 | register            | /register           | [POST] |
-| mian                | /main               | [POST] |
+| main                | /main               | [POST] |
 | user                | /user/<user_id>     | [POST] |
 | add user            | /user/add/<user_id> | [POST] |
 | add device data     | /device/<user_id>   | [POST] |
@@ -55,19 +69,28 @@ Define Interface for devices to ingest data into the system
 
 ##### Data Fields 
 
-(including knowing how to attribute the data to a patient)
+- Data types and units:
+  - Temperature: ("C", "F")
+  - Weight: ("kgs", "lbs")
+  - Pulse:("bpm")
+  - Systolic blood pressure: ("mmHg")
+  - Diastolic blood pressure: ("mmHg")
+  - Glucose level: ("mg/dL")
+  - Oxygen level: (%)
 
-Include Temperature, blood pressure, pulse, oximeter, weight and Glucometer and data your system can handle
+- Error Conditions:
 
-##### Error Conditions
+  - Invalid key
 
+  - Invalid device type
 
+  - Invalid units for device
+
+  - Invalid measurements
 
 ##### Pull or Push mechanisms
 
 Push mechanisms. Once the results or updates come out, they can be sent out immediately.
-
-
 
 
 
@@ -79,4 +102,12 @@ Push mechanisms. Once the results or updates come out, they can be sent out imme
 
 ### 2. Chat Module
 
-one-on-one chat
+The Chat Module allows patients to communicate with health providers via text, video, or voice message.
+
+The screenshot below shows the chat module.
+
+![](./img/send_chat.png)
+
+The screenshot below shows the chat history, which stored in the SQLite database.
+
+![](./img/chat_history.png)

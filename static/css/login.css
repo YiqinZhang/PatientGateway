@@ -29,15 +29,17 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 */
-	height: 900px;
+	height: 1200px;
 	background-color: #FFFFFF;
 }
 /* Navigation */
 header {
 	width: 100%;
-	height: 5%;
+	/*height: 8%;*/
+	height: 3rem;
 	background-color: #117711;
 	border-bottom: 1px solid #117711;
+	padding-bottom: 5px;
 }
 .logo {
 	color: #fff;
@@ -47,13 +49,16 @@ header {
 	float: left;
 	margin-top: 15px;
 	margin-left: 25px;
-	letter-spacing: 4px;
+	/*margin-bottom: 10px;*/
+	letter-spacing: 2px;
+	font-size: 1.5rem;
 }
 nav {
 	float: right;
 	width: 50%;
 	text-align: right;
 	margin-right: 25px;
+	margin-top: 15px;
 }
 header nav ul {
 	list-style: none;
@@ -62,12 +67,14 @@ header nav ul {
 nav ul li {
 	float: left;
 	color: #FFFFFF;
-	font-size: 14px;
+	/*font-size: 14px;*/
+	font-size: 1rem;
 	text-align: left;
 	margin-right: 25px;
 	letter-spacing: 2px;
 	font-weight: bold;
 	transition: all 0.3s linear;
+	text-transform: capitalize;
 }
 ul li a {
 	color: #FFFFFF;
@@ -89,18 +96,33 @@ h3, .h3 {
 	color:#117711;
 }
 
+h6{
+	margin-top: 24px;
+	text-align: left;
+	color:#212529;
+}
 
 .display-4 {
-	/*padding-top: 150px;*/
-	padding-bottom: 150px;
-  font-size: 2rem;
-  font-weight: 200;
-  line-height: 1.5;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	font-size: 2rem;
+	font-weight: 200;
+	line-height: 1.5;
 	color:#117711;
 /*		#5A9367;*/
 	margin-left: 12px;
 	border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+}
+
+p {
+	margin-top: 24px;
+	text-align: left;
+	color:#212529;
+/*	padding-top: 16px;*/
+/*	padding-bottom: 100px;*/
+	line-height: 1.5;
+/*	color:#117711*/
 }
 
 p #signup {
@@ -109,7 +131,6 @@ p #signup {
 /*	padding-bottom: 100px;*/
 	line-height: 1.5;
 /*	color:#117711*/
-	
 }
 hr {
   margin-top: 100px;
@@ -149,7 +170,12 @@ a:not([href]):hover {
   align-items: right;
 }
 
-
+.badge badge-primary{
+  /*color: #fff;*/
+	color: #43A047
+  background-color: #43A047;
+  border-color: #43A047;
+}
 /* More info */
 footer {
 	background-color: #FFFFFF;
@@ -159,11 +185,7 @@ footer {
 }
 
 
-p {
-	text-align:center;
-	color:#212529;
-	font:200;
-}
+
 .footer_column .fill {
 	display:inline-block;
 	width: 100%;
@@ -258,11 +280,6 @@ footer .footer_column p {
   padding-left: 12px;
   border-radius: 0;
   display: block;
-/*
-  margin-left: auto;
-  margin-right: auto;
-*/
-/*  background-color: #F2F2F2;*/
 }
 
 
@@ -364,6 +381,8 @@ fieldset:disabled a.btn {
 
 
 .footer_banner .stats {
+	text-align: center;
+	/*width: 30%;*/
 	color: #118811;
 	margin-bottom: 15px;
 	text-transform: uppercase;
@@ -447,23 +466,14 @@ fieldset:disabled a.btn {
 	border-top-width: 2px;
 }
 */
-/*
-.footer_banner {
-	background-color: #B3B3B3;
-	padding-top: 60px;
-	padding-bottom: 60PX;
-	margin-bottom: 0px;
-	background-image: url(../images/pattern.png);
-	background-repeat: repeat;
-}
-*/
+
 .footer_banner {
 	background-color: #F2F2F2;
 	padding-top: 60px;
 	padding-bottom: 60PX;
 		margin-top: 16px;
 	margin-bottom: 0px;
-	background-image: url(../images/pattern.png);
+	/*background-image: url(../images/pattern.png);*/
 	background-repeat: repeat;
 	clear: both;
 	display: inline-block;
@@ -492,6 +502,7 @@ fieldset:disabled a.btn {
 	width: 100%;
 	float: none;
 	display: none;
+	text-transform: uppercase;
 }
 header nav ul {
 }
@@ -502,6 +513,7 @@ nav ul li {
 	margin-left: 0px;
 	width: 100%;
 	text-align: center;
+	text-transform: uppercase;
 }
 .text_column {
 	width: 100%;

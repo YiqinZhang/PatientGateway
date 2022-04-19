@@ -1,7 +1,7 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, flash
 from flask import render_template
 from flask import url_for, jsonify, redirect, abort
-# from flask_restful import Api, reqparse,
+from flask_restful import Api, reqparse
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
@@ -13,13 +13,10 @@ import json
 
 app = Flask(__name__)
 # api = Api(app)
-# user_put_args = reqparse.RequestParser()
-# app.config['SECRET_KEY'] = 'mysecretkey'
+user_put_args = reqparse.RequestParser()
+app.config['SECRET_KEY'] = 'mysecretkey'
 
 
-# @app.route('/')
-# def index():
-#     return "Welcome to the Health Platform!"
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -29,7 +26,7 @@ def get_db_connection():
 @app.route('/')
 def index():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM user').fetchall()
     conn.close()
     return render_template('index.html', posts=posts)
 
@@ -147,37 +144,67 @@ def add_device_data(user_id):
     return render_template('device.html', user_id=user_id)
 
 
+@app.route('/chat')
+def chat():
+    conn = get_db_connection()
+    posts = conn.execute('SELECT * FROM chat').fetchall()
+    conn.close()
+    return render_template('chat_history.html', posts=posts)
+
+
 @app.route('/chat/<name>', methods=['POST', 'GET'])
 def send_chat(name):
     if request.method == 'POST':
         to = request.form['To']
         to_id = user.get_user_id(to)
-        with open('user.json', 'r') as f:
-            user_dict = json.load(f)
-            data = user_dict['users']
-        if to_id not in data:
-            return 'Receiver Not Exist!'
-        message = request.form['message']
         sender_id = user.get_user_id(name)
-        if message:
+        message = request.form['Message']
+
+        if not to_id:
+            flash("To can't be empty!")
+        elif not message:
+            flash("Message can't be empty!")
+        elif message:
             new_chat = chat.Chat(sender=sender_id, to=to_id, message=message)
             try:
-                chat.send_chat(new_chat)
+                # chat.send_chat(new_chat)
+                conn = get_db_connection()
+                conn.execute('INSERT INTO chat(sender_id, to_id,format, transcript) VALUES (?, ?, ?,?)',
+                             (sender_id,to_id,'message', message))
+                conn.commit()
+                conn.close()
+                return redirect(url_for('chat_history'))
             except ValueError as e:
                 abort(400, description=e)
-        else:
-            return "Message can't be empty!"
 
-    return redirect(url_for('main', name=name))
+        # with open('user.json', 'r') as f:
+        #     user_dict = json.load(f)
+        #     data = user_dict['users']
+        # if to_id not in data:
+        #     return 'Receiver Not Exist!'
+    return render_template('chat.html')
+    # return redirect(url_for('chat', name=name))
 
 
 @app.route('/chat/history/<name>', methods=['POST', 'GET'])
 def chat_history(name):
     if request.method == 'POST':
         uid = user.get_user_id(name)
-        chat.get_chat_history(uid)
-    return render_template('chat.html', name=name)
+        # posts = chat.get_chat_history(uid)
+        chat_records = chat.get_chat_records(uid)
+    return render_template('chat_history.html', posts=chat_records)
     # return Response(chat.get_chat_history(user.get_user_id(name)))
+
+
+@app.route('/<int:id>/delete', methods=('POST',))
+def delete(post_id):
+    post = chat.get_post(post_id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM chat WHERE id = ?', (post_id,))
+    conn.commit()
+    conn.close()
+    flash('"{}" was successfully deleted!'.format(post['To']))
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
