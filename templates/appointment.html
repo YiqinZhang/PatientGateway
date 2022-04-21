@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="display-4">{% block title %} Appointments {% endblock %}</h1>
+    <br>
+    <div class="calendar" id="calendar-3" data-mdb-default-view="week"></div>
+
+    {% for apt in apps %}
+        <a href="#">
+            <div class="row">
+              <div class="col">
+                  <h3 >Doctor: id {{ apt['doctor_id'] }}</h3>
+              </div>
+                <div class="col">
+                  <h3>Patient: id {{ apt['patient_id'] }}</h3>
+                </div>
+            </div>
+            <h5 class="text-black-50">{{ apt['date'] }}</h5>
+            <h5 class="text-black-50">{{ apt['start'] }}</h5>
+            <h5 class="text-black-50">{{ apt['finish'] }}</h5>
+        </a>
+
+    {% endfor %}
+{% endblock %}
+

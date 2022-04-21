@@ -38,5 +38,8 @@ cur.execute(sql, ('1', '2', 'message', 'How are you, today?'))
 sql = "INSERT INTO chat (sender_id, to_id, format, transcript)VALUES (?, ?, ?, ?)"
 cur.execute(sql, ('1', '2', 'message', 'May I make a appointment with you next Wed?'))
 
+sql = 'INSERT INTO appointment (doctor_id, patient_id, appointment_date, start, finish) values (?, ?, ?, ?,?)'
+cur.execute(sql, ('1', '2', '2022-5-1', '10:00:00', '11:00;00'))
+
 connection.commit()
 connection.close()
