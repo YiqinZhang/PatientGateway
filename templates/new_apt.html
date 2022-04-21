@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="display-4">{% block title %} Make a New Appointment {% endblock %}</h1>
+    <br>
+<form method="post">
+    <div class="row">
+      <div class="col">
+          <label for="To">Doctor</label>
+        <input type="text" class="form-control" placeholder="User id" aria-label="First name">
+      </div>
+      <div class="col">
+          <label for="To">Patient</label>
+        <input type="text" class="form-control" placeholder="User id" aria-label="Last name">
+      <br>
+      </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+          <label for="time">Date</label>
+        <input type="text" class="form-control" placeholder="Appointment date" aria-label="First name">
+      <br>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <label for="time">Start Time</label>
+        <input type="text" class="form-control" placeholder="From" aria-label="Last name">
+      </div>
+        <div class="col">
+          <label for="time">End Time</label>
+        <input type="text" class="form-control" placeholder="To" aria-label="Last name">
+      </div>
+    </div>
+    <br>
+    <br>
+  <div class="col-12">
+    <button class="btn btn-success" type="submit">Submit</button>
+  </div>
+</form>
+{% endblock %}

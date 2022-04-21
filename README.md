@@ -111,3 +111,11 @@ The screenshot below shows the chat module.
 The screenshot below shows the chat history, which stored in the SQLite database.
 
 ![](./img/chat_history.png)
+
+
+
+### 3. Calendar Module
+
+Patients and medical providers can make appointments with each other and manage the appointments on the calendar, like edit and delete them.
+
+![ ](./img/new_apt.png)

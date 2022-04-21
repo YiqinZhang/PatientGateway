@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS device;
 DROP TABLE IF EXISTS chat;
+DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,4 +38,16 @@ CREATE TABLE chat (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES user (id),
     FOREIGN KEY (to_id) REFERENCES user (id)
+);
+
+CREATE TABLE appointment (
+    a_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    doctor_id INT NOT NULL, 
+    patient_id INT NOT NULL,
+    appointment_date DATETIME, 
+    start TIME,
+    finish TIME,
+    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (doctor_id) REFERENCES user (id),
+    FOREIGN KEY (patient_id) REFERENCES user (id)
 );

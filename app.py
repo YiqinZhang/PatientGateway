@@ -6,6 +6,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
 import sqlite3
+
+import appointment
 import chat
 import device
 import user
@@ -28,7 +30,7 @@ def index():
     conn = get_db_connection()
     posts = conn.execute('SELECT * FROM user').fetchall()
     conn.close()
-    return render_template('index.html', posts=posts)
+    return render_template('login.html', posts=posts)
 
 
 class Register(FlaskForm):
@@ -206,6 +208,30 @@ def delete(post_id):
     flash('"{}" was successfully deleted!'.format(post['To']))
     return redirect(url_for('index'))
 
+
+@app.route('/apt/<name>', methods=['POST', 'GET'])
+def display_appoint(name):
+    if request.method == 'GET':
+        uid = user.get_user_id(name)
+        conn = get_db_connection()
+        apps = appointment.get_appointment(conn, uid)
+        print(apps)
+    return render_template('appointment.html', appointments=apps)
+
+
+@app.route('/apt/new/<name>', methods=['POST', 'GET'])
+def make_appoint(name):
+    if request.method == 'Post':
+        uid = user.get_user_id(name)
+        conn = get_db_connection()
+        doctor = request.form['doctor']
+        date = request.form['appointment date']
+        startime = request.form['start time']
+        endtime = request.form['endtime']
+        new_apt = appointment.make_appointment(conn, doctor, uid, date, startime, endtime)
+        print(new_apt)
+    return render_template('new_apt.html')
+    # return redirect(url_for('apt/<name>'))
 
 if __name__ == "__main__":
     # app.run()
