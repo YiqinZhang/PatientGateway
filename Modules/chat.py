@@ -1,6 +1,6 @@
 # from typing import List, Union
 import json
-import Module.user as user
+import Modules.user as user
 from datetime import datetime
 
 with open('inbox.json', 'r') as f:
