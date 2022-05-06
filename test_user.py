@@ -1,7 +1,7 @@
 import pytest
 import requests
-import user
-import device
+import Modules.user as user
+import Modules.device as device
 
 
 # BASE = "http://127.0.0.1:5000/"

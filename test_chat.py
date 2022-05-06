@@ -1,5 +1,5 @@
 import pytest
-import chat
+import Modules.chat as chat
 
 
 class TestChat:

@@ -1,5 +1,5 @@
 import pytest
-import device
+import Modules.device as device
 
 
 class TestDevice:
