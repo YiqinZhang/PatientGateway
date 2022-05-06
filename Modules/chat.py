@@ -3,11 +3,10 @@ import json
 import Modules.user as user
 from datetime import datetime
 
-with open('inbox.json', 'r') as f:
+with open('./Modules/inbox.json', 'r') as f:
     chat_dict = json.load(f)
     if not chat_dict:
         chat_dict = {}
-
 
 class Chat:
     def __init__(self, sender, to, message):
