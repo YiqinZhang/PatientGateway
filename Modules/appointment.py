@@ -66,11 +66,14 @@ def make_appointment(doctor, patient, date, startime, endtime, symptom):
     # check available
     for entry in results:
         if (datetime.strptime(date, '%Y-%m-%d') - datetime.strptime(entry[3], '%Y-%m-%d')).days == 0:
-            if format_time(str(entry[4])) <= format_time(startime) < format_time(str(entry[5])):
+            start = format_time(str(entry[4]))
+            finish = format_time(str(entry[5]))
+            if start <= format_time(startime) < finish:
                 print("Time conflict.")
                 return
     store_appointment(doctor, patient, date, startime, endtime, symptom)
     print('Appointment are reserved')
+    conn.commit()
     conn.close()
     return cursor.lastrowid
 
