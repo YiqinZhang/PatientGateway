@@ -1,13 +1,15 @@
 import json
-import device
+import DB.db as db
+from . import device
 
-with open('user.json', 'r') as f:
+with open('./Modules/user.json', 'r') as f:
     user_dict = json.load(f)
     if user_dict:
         data = user_dict["users"]
     else:
         data = {}
-    # print(data)
+
+
 indicators = {"user_id", "name", "dob", "gender", "blood_type", "height", "weight",
               "temp", "pulse", "systolic_blood_pressure", "oxygen_level",
               "diastolic_blood_pressure", "glucose_level"}
@@ -33,11 +35,23 @@ def abort_if_id_exists(user_id):
     return exist
 
 
-def get_user(user_id):
-    abort_if_user_id_doesnt_exist(user_id)
-    for user in data:
-        if user['user_id'] == user_id:
-            return user
+# def get_user(user_id):
+#     abort_if_user_id_doesnt_exist(user_id)
+#     for user in data:
+#         if user['user_id'] == user_id:
+#             return user
+
+
+def get_user(username):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    sql = 'select * from user where username = ?'
+    cursor.execute(sql, (username,))
+    results = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    print(results)
+    return results
 
 
 def get_user_id(name):

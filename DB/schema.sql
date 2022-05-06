@@ -34,20 +34,34 @@ CREATE TABLE chat (
     sender_id INTEGER NOT NULL,
     to_id INTEGER NOT NULL,
     format TEXT CHECK( format IN ('message','image','voice','video') ) NOT NULL,
-    transcript VARCHAR NOT NULL,
+    content TEXT,
+    transcript TEXT NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES user (id),
     FOREIGN KEY (to_id) REFERENCES user (id)
 );
 
+-- CREATE TABLE appointment (
+--     a_id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     doctor_id INT NOT NULL,
+--     patient_id INT NOT NULL,
+--     appointment_date DATETIME,
+--     start TIME,
+--     finish TIME,
+--     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (doctor_id) REFERENCES user (id),
+--     FOREIGN KEY (patient_id) REFERENCES user (id)
+-- );
+
 CREATE TABLE appointment (
     a_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    doctor_id INT NOT NULL, 
-    patient_id INT NOT NULL,
-    appointment_date DATETIME, 
-    start TIME,
-    finish TIME,
+    doctor_name VARCHAR NOT NULL,
+    patient_name VARCHAR NOT NULL,
+    appointment_date VARCHAR,
+    start VARCHAR,
+    finish VARCHAR,
+    symptom TEXT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (doctor_id) REFERENCES user (id),
-    FOREIGN KEY (patient_id) REFERENCES user (id)
+    FOREIGN KEY (doctor_name) REFERENCES user (username),
+    FOREIGN KEY (doctor_name) REFERENCES user (username)
 );

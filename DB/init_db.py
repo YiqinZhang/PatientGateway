@@ -20,7 +20,7 @@ sql = "INSERT INTO user (username, password, firstname, lastname, role)VALUES (?
 cur.execute(sql, ('Rose', '123', 'Rose', 'Titanic', 'patient'))
 
 sql = "INSERT INTO user (username, password, firstname, lastname, role)VALUES (?, ?, ?, ?, ?)"
-cur.execute(sql, ('Jack', '123', 'Rack', 'Atlantic', 'family'))
+cur.execute(sql, ('Jack', '123', 'Jack', 'Atlantic', 'family'))
 
 sql = "INSERT INTO user (username, password, firstname, lastname, role)VALUES (?, ?, ?, ?, ?)"
 cur.execute(sql, ('Mark', '123', 'Mark', 'Zuck', 'developer'))
@@ -38,8 +38,8 @@ cur.execute(sql, ('1', '2', 'message', 'How are you, today?'))
 sql = "INSERT INTO chat (sender_id, to_id, format, transcript)VALUES (?, ?, ?, ?)"
 cur.execute(sql, ('1', '2', 'message', 'May I make a appointment with you next Wed?'))
 
-sql = 'INSERT INTO appointment (doctor_id, patient_id, appointment_date, start, finish) values (?, ?, ?, ?,?)'
-cur.execute(sql, ('1', '2', '2022-5-1', '10:00:00', '11:00;00'))
+sql = 'INSERT INTO appointment (doctor_name, patient_name, appointment_date, start, finish, symptom) values (?, ?, ?, ?, ?, ?)'
+cur.execute(sql, ('Jack', 'Rose', '2022-5-1', '10:00:00', '11:00:00', 'cough'))
 
 connection.commit()
 connection.close()

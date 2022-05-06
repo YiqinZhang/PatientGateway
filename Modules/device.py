@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 from flask_restful import abort
 
-with open('user.json', 'r') as f:
+with open('./Modules/user.json', 'r') as f:
     user_dict = json.load(f)
     data = user_dict['users']
 

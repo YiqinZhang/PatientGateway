@@ -40,26 +40,39 @@ Module branches: module branches to add and implement new feature. After passing
 
 ## API
 
-| Page                | Endpoint            | Method |
-| ------------------- | ------------------- | ------ |
-| index               | /                   | [GET]  |
-| login               | /login              | [POST] |
-| register            | /register           | [POST] |
-| main                | /main               | [POST] |
-| user                | /user/<user_id>     | [POST] |
-| add user            | /user/add/<user_id> | [POST] |
-| add device data     | /device/<user_id>   | [POST] |
-| send chat           | /chat/<user_id>     | [POST] |
-| get chat history    | /chat/history/<>    | [GET]  |
-| delete chat history | /chat/del           | [POST] |
+| Page                    | Endpoint                    | Method   |
+| ----------------------- | --------------------------- | -------- |
+| index                   | /                           | [GET]    |
+| login                   | /login                      | [POST]   |
+| register                | /register                   | [POST]   |
+| main                    | /main                       | [POST]   |
+| user                    | /user/<user>                | [POST]   |
+| add user                | /user/add/<user>            | [POST]   |
+| delete user             | /user/del/<user>            | [DELETE] |
+| add device data         | /device/<user>              | [POST]   |
+| delete device data      | /device/del/<user>          | [POST]   |
+| send chat               | /chat/<user>                | [POST]   |
+| get chat history        | /chat/history/<user>        | [GET]    |
+| delete chat history     | /chat/del/<c_id>            | [POST]   |
+| make appointment        | /appointment/<user>         | [POST]   |
+| get appointment history | /appointment/history/<user> | [GET]    |
+| delete chat history     | /chat/del/<a_id>            | [POST]   |
 
 
 
 ## Components
 
+![](./img/achitect.png)
+
+
+
 ##### Login page
 
 ![](./img/login.png)
+
+Register page
+
+
 
 
 
@@ -119,3 +132,5 @@ The screenshot below shows the chat history, which stored in the SQLite database
 Patients and medical providers can make appointments with each other and manage the appointments on the calendar, like edit and delete them.
 
 ![ ](./img/new_apt.png)
+
+![ ](./img/apt.png)
