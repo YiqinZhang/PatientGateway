@@ -68,7 +68,8 @@ def make_appointment(doctor, patient, date, startime, endtime, symptom):
         if (datetime.strptime(date, '%Y-%m-%d') - datetime.strptime(entry[3], '%Y-%m-%d')).days == 0:
             start = format_time(str(entry[4]))
             finish = format_time(str(entry[5]))
-            if start <= format_time(startime) < finish:
+            start_time = format_time(startime)
+            if start <= start_time < finish:
                 print("Time conflict.")
                 return
     store_appointment(doctor, patient, date, startime, endtime, symptom)
