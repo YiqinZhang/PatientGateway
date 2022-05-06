@@ -78,7 +78,7 @@ def add_user(user_id, name, dob):
         "weight": None,
         "glucose_level": None,
     }
-    with open('user.json', 'w') as f:
+    with open('./Modules/user.json', 'w') as f:
         data.append(new_patient)
         user_dict.update({"users": data})
         json.dump(user_dict, f, indent=2)
