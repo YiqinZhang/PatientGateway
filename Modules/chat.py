@@ -1,78 +1,65 @@
-# from typing import List, Union
-import json
-import Modules.user as user
+import DB.database as db
 from datetime import datetime
 
-with open('./Modules/inbox.json', 'r') as f:
-    chat_dict = json.load(f)
-    if not chat_dict:
-        chat_dict = {}
 
-class Chat:
-    def __init__(self, sender, to, message):
-        self.sender = sender
-        self.to = to
-        self.message = message
-
-    @property
-    def contact(self):
-        return [self.sender] + [self.to]
-
-    def is_valid(self):
-        if len(self.message) > 1000 or len(self.message) < 2:
-            return False
-        for person in self.contact:
-            user.abort_if_user_id_doesnt_exist(person)
-        return True
-
-    @property
-    def content(self):
-        return {
-            "sender": self.sender,
-            "to": self.to,
-            "message": self.message,
-            "time": datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
+def create_chat_table():
+    conn = db.get_db()
+    cursor = conn.cursor()
+    sql = 'DROP TABLE IF EXISTS chat'
+    cursor.execute(sql)
+    sql = '''create table chat (c_id INT AUTO_INCREMENT, 
+            sender VARCHAR(40) REFERENCES user (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+            recipient VARCHAR(40) REFERENCES user (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,,
+            type VARCHAR(40) CHECK( type IN ('message','image','voice','video') ) NOT NULL,
+            content TEXT NOT NULL,
+            transcript TEXT,
+            created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY(c_id);'''
+    cursor.execute(sql)
+    db.commit()
+    db.close()
 
 
-def send_chat(chat):
-    if not chat.is_valid():
-        raise ValueError("Chat is not valid. Check length or member ids")
-    content = dict(sender=chat.sender, to=chat.to, message=chat.message,
-                   time=datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-
-    with open('inbox.json', 'w') as f:
-        num = len(chat_dict)
-        chat_dict[str(num)] = content
-        json.dump(chat_dict, f, indent=2)
-
-    return content
-
-
-# send_chat(Chat(1, 2, "The First message"))
-# send_chat(Chat(2, 3, "Second message sent"))
-def get_chat_history(user_id):
-    user.abort_if_user_id_doesnt_exist(user_id)
-    history = {}
-    for k, v in chat_dict.items():
-        if user_id == v["sender"] or user_id == v["to"]:
-            # history.update({k, v})
-            history[k] = v
-    return history
+def send_chat(sender, to, type, content):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    if type == 'message':
+        time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        sql = 'INSERT INTO chat(sender, recipient, type, content, created) VALUES (?, ?, ?, ?, ?)'
+        cursor.execute(sql, (sender, to, type, content, time))
+        print('message sent!')
+    conn.commit()
+    conn.close()
+    return cursor.lastrowid
 
 
-# print(get_chat_history(1))
-#
-# def del_chat_history(user_id):
-#     abort_if_user_id_doesnt_exist(user_id)
-#     for u in data:
-#         if u['user_id'] == user_id:
-#             deleted = u
-#             data.remove(u)
-#             if not u:
-#                 raise ValueError(f"User {user_id} is not deleted")
-#             break
-#     with open('user.json', 'w') as f:
-#         user_dict.update({"users": data})
-#         json.dump(user_dict, f, indent=2)
-#     return deleted
+def get_chat_history(username):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    sql = 'select * from chat where sender= ? or recipient = ?'
+    cursor.execute(sql, (username, username))
+    results = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return results
+
+
+def get_one_chat(sender, recipient):
+    conn = db.get_db()
+    cursor = conn.cursor()
+    sql = 'select * from appointment where (sender = ? and recipient = ?) or (recipient = ?and sender = ?) '
+    cursor.execute(sql, (sender, recipient, recipient, sender))
+    results = cursor.fetchall()
+    conn.commit()
+    conn.close()
+    return results
+
+
+# create_chat_table()
+# doctor = 3
+# patient = 4
+# date = "2022-6-1"
+# start = '10:00:00'
+# end = '12:00:00'
+# # store_appointment(doctor, patient, date, start, end, password)
+# make_appointment(doctor, patient, date, start, end, password)
