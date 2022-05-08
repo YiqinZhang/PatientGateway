@@ -5,8 +5,7 @@ import sys
 
 sys.path.append("..")
 from Modules import chat
-
-db_dir = '../DB/database.db'
+from Modules.chat import db_dir
 
 
 def test_send_chat_invalid_receiver():
