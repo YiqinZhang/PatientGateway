@@ -40,23 +40,23 @@ Module branches: module branches to add and implement new feature. After passing
 
 ## API
 
-| Page                    | Endpoint                    | Method   |
-| ----------------------- | --------------------------- | -------- |
-| index                   | /                           | [GET]    |
-| login                   | /login                      | [POST]   |
-| register                | /register                   | [POST]   |
-| main                    | /main                       | [POST]   |
-| user                    | /user/<user>                | [POST]   |
-| add user                | /user/add/<user>            | [POST]   |
-| delete user             | /user/del/<user>            | [DELETE] |
-| add device data         | /device/<user>              | [POST]   |
-| delete device data      | /device/del/<user>          | [POST]   |
-| send chat               | /chat/<user>                | [POST]   |
-| get chat history        | /chat/history/<user>        | [GET]    |
-| delete chat history     | /chat/del/<c_id>            | [POST]   |
-| make appointment        | /appointment/<user>         | [POST]   |
-| get appointment history | /appointment/history/<user> | [GET]    |
-| delete chat history     | /chat/del/<a_id>            | [POST]   |
+| Page                    | Endpoint                    | Method |
+| ----------------------- | --------------------------- | ------ |
+| index                   | /                           | [GET]  |
+| login                   | /login                      | [POST] |
+| register                | /register                   | [POST] |
+| main                    | /main                       | [POST] |
+| user                    | /user/<user>                | [POST] |
+| add user                | /user/add/<user>            | [POST] |
+| delete user             | /user/del/<user>            | [POST] |
+| add device data         | /device/<user>              | [POST] |
+| delete device data      | /device/del/<user>          | [POST] |
+| send chat               | /chat/<user>                | [POST] |
+| get chat history        | /chat/history/<user>        | [GET]  |
+| delete chat history     | /chat/del/<c_id>            | [POST] |
+| make appointment        | /appointment/<user>         | [POST] |
+| get appointment history | /appointment/history/<user> | [GET]  |
+| delete chat history     | /chat/del/<a_id>            | [POST] |
 
 
 
