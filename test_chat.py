@@ -1,7 +1,7 @@
 import sqlite3
 
 import pytest
-import Modules.chat as chat
+from Modules import chat
 
 db_dir = './DB/database.db'
 

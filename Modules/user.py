@@ -1,5 +1,5 @@
 import json
-import DB.database as db
+from DB import database as db
 
 indicators = ["user_id", "name", "dob", "gender", "blood_type", "height", "weight",
               "temp", "pulse", "systolic_blood_pressure", "oxygen_level",
