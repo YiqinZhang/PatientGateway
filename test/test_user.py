@@ -1,5 +1,8 @@
 import sqlite3
 import pytest
+import sys
+
+sys.path.append("..")
 from Modules import user
 
 
@@ -40,10 +43,12 @@ def test_add_user_exists():
 
 
 @pytest.mark.parametrize('username, password, fn, ln, gender, role, phone, dob, h, w, output',
-                         [('evaa','123', 'evaa', 'Z', 'other', 'patient', '123456', '2000-02-22', 170, 55, None),
-                          ('jassica', '123', 'jassica', 'Atlantic', '', 'family', '9876543210', '2000-2-22', 160, 42, None),
+                         [('evaa', '123', 'evaa', 'Z', 'other', 'patient', '123456', '2000-02-22', 170, 55, None),
+                          ('jassica', '123', 'jassica', 'Atlantic', '', 'family', '9876543210', '2000-2-22', 160, 42,
+                           None),
                           ('adam', '123', 'adam', 'Fu', 'male', '', '9999999999', '1998-11-22', 180, 60, None),
-                          ('rose','123', 'rose', 'Atlantic', 'female', 'patient', '1010101010', '1998-11-22', 165, 50, None)])
+                          ('rose', '123', 'rose', 'Atlantic', 'female', 'patient', '1010101010', '1998-11-22', 165, 50,
+                           None)])
 def test_add_user(username, password, fn, ln, gender, role, phone, dob, h, w, output):
     conn = sqlite3.connect("../DB/database.db")
     last_id = user.add_user(conn, username, password, fn, ln, gender, role, phone, dob, h, w)

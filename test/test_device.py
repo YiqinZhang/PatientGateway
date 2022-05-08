@@ -1,5 +1,8 @@
 import pytest
-import Modules.device as device
+import sys
+
+sys.path.append("..")
+from Modules import device
 
 
 class TestDevice:
