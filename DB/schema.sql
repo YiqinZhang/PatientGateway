@@ -4,12 +4,17 @@ DROP TABLE IF EXISTS chat;
 DROP TABLE IF EXISTS appointment;
 
 CREATE TABLE user (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username VARCHAR UNIQUE NOT NULL,
-    password VARCHAR NOT NULL,
-    firstname TEXT NOT NULL,
-    lastname TEXT NOT NULL,
-    role TEXT CHECK( role IN ('admin','doctor','nurse','patient','family','developer') ) NOT NULL,
+    u_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(40) UNIQUE NOT NULL,
+    password VARCHAR(40) NOT NULL,
+    firstname VARCHAR(40) NOT NULL, 
+    lastname VARCHAR(40) NOT NULL, 
+    gender VARCHAR(20) CHECK (gender IN ('male', 'female')) DEFAULT ('male') NOT NULL, 
+    role VARCHAR(20) CHECK (role IN ('doctor', 'nurse', 'patient', 'family', 'admin', 'developer')) NOT NULL DEFAULT ('patient'), 
+    phone VARCHAR(20) CHECK (LENGTH(Phone) = 10) DEFAULT (0000000000), 
+    dob DATETIME NOT NULL, 
+    height_cm INT, 
+    weight_kg INT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -34,20 +39,34 @@ CREATE TABLE chat (
     sender_id INTEGER NOT NULL,
     to_id INTEGER NOT NULL,
     format TEXT CHECK( format IN ('message','image','voice','video') ) NOT NULL,
-    transcript VARCHAR NOT NULL,
+    content TEXT,
+    transcript TEXT NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sender_id) REFERENCES user (id),
     FOREIGN KEY (to_id) REFERENCES user (id)
 );
 
+-- CREATE TABLE appointment (
+--     a_id INTEGER PRIMARY KEY AUTOINCREMENT,
+--     doctor_id INT NOT NULL,
+--     patient_id INT NOT NULL,
+--     appointment_date DATETIME,
+--     start TIME,
+--     finish TIME,
+--     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (doctor_id) REFERENCES user (id),
+--     FOREIGN KEY (patient_id) REFERENCES user (id)
+-- );
+
 CREATE TABLE appointment (
     a_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    doctor_id INT NOT NULL, 
-    patient_id INT NOT NULL,
-    appointment_date DATETIME, 
-    start TIME,
-    finish TIME,
+    doctor_name VARCHAR NOT NULL,
+    patient_name VARCHAR NOT NULL,
+    appointment_date VARCHAR,
+    start VARCHAR,
+    finish VARCHAR,
+    symptom TEXT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (doctor_id) REFERENCES user (id),
-    FOREIGN KEY (patient_id) REFERENCES user (id)
+    FOREIGN KEY (doctor_name) REFERENCES user (username),
+    FOREIGN KEY (doctor_name) REFERENCES user (username)
 );

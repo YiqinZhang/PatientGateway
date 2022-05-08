@@ -4,18 +4,19 @@
     <h1 class="display-4">{% block title %} Chat History {% endblock %}</h1>
     <br>
     {% for post in posts %}
-        <a href="#">
-            <div class="row">
-              <div class="col">
-                  <h3 >From: id {{ post['sender_id'] }}</h3>
-              </div>
-                <div class="col">
-                  <h3>To: id {{ post['to_id'] }}</h3>
-                </div>
+        <div class="row">
+          <div class="col">
+              <h5 class="text-black-60">From:  {{ post['sender'] }}</h5>
+          </div>
+            <div class="col">
+              <h5 class="text-black-60">To: {{ post['recipient'] }}</h5>
             </div>
-            <h5 class="text-black-50">{{ post['transcript'] }}</h5>
-        </a>
-<!--        <span class="badge badge-primary">{{ post['created'] }}</span>-->
+        </div>
+        {% if post[2] == name %}
+            <h5 class="text-black-50">{{ post['content'] }}</h5>
+        {% else %}
+            <h5 class="received" style="color:darkgreen" style="text-align:left">{{ post['content'] }}</h5>
+        {% endif %}
         <span class="badge badge-success">{{ post['created'] }}</span>
         <hr>
     {% endfor %}

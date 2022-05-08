@@ -3,18 +3,17 @@
 {% block content %}
 
 <h1 class="display-4">{% block title %} Send a New Message {% endblock %}</h1>
-    <br>
-<form method="post">
+<form action = "{{url_for('send_chat', name=name)}}" method="post">
     <div class="form-group">
         <label for="To">To</label>
-        <input type="text" name="To"
-               placeholder="To" class="form-control"
+        <input id = "To" type="text" name="To"
+               placeholder="Recipient" class="form-control"
                value="{{ request.form['To'] }}"></input>
     </div>
 
     <div class="form-group">
         <label for="Message">Message</label>
-        <textarea name="Message" placeholder="Message content"
+        <textarea id="Message" name="Message" rows="4" placeholder="Message content"
                   class="form-control">{{ request.form['Message'] }}</textarea>
     </div>
     <div class="form-group">
@@ -33,6 +32,19 @@
       <label for="formFileMultiple" class="form-label">Video File input</label>
       <input class="form-control" type="file" id="formFileMultiple" multiple>
     </div>
+</form>
 
+<h1 class="display-4">Chat History</h1>
+
+<form action = "{{url_for('chat_history', name=name)}}" method="post">
+    <div class="row">
+        <div class="col">
+        <input id = appoint type="text" class="form-control" placeholder="Appointment with" name = doctor aria-label="First name">
+        <br>
+        </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-success" type="submit">Submit</button>
+    </div>
 </form>
 {% endblock %}
