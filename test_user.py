@@ -1,6 +1,6 @@
 import sqlite3
 import pytest
-import Modules.user as user
+from Modules import user
 
 
 def test_abort_if_user_id_doesnt_exist():

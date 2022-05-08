@@ -4,6 +4,7 @@ import DB.database as db
 indicators = ["user_id", "name", "dob", "gender", "blood_type", "height", "weight",
               "temp", "pulse", "systolic_blood_pressure", "oxygen_level",
               "diastolic_blood_pressure", "glucose_level"]
+MP = ['doctor', 'nurse', 'MP']
 
 
 def create_user_table():
@@ -29,9 +30,8 @@ def create_user_table():
     db.close()
 
 
-def abort_if_user_doesnt_exist(username):
+def abort_if_user_doesnt_exist(conn, username):
     exist = False
-    conn = db.get_db()
     cursor = conn.cursor()
     sql = 'select * from user where username = ?'
     cursor.execute(sql, (username,))
@@ -44,9 +44,8 @@ def abort_if_user_doesnt_exist(username):
     # abort(404, message="Could not find user id...")
 
 
-def abort_if_user_exists(username):
+def abort_if_user_exists(conn, username):
     exist = False
-    conn = db.get_db()
     cursor = conn.cursor()
     sql = 'select * from user where username = ?'
     cursor.execute(sql, (username,))
@@ -57,25 +56,61 @@ def abort_if_user_exists(username):
     return exist
 
 
-def get_user(username):
-    conn = db.get_db()
+def get_user(conn, username):
     cursor = conn.cursor()
     sql = 'select * from user where username = ?'
     cursor.execute(sql, (username,))
     results = cursor.fetchall()
+    if len(results) == 0:
+        raise KeyError(f'Cannot find user {username}')
     conn.commit()
     conn.close()
     return results
 
 
+def get_one_user(conn, username):
+    cursor = conn.cursor()
+    sql = 'select * from user where username = ?'
+    cursor.execute(sql, (username,))
+    result = cursor.fetchone()
+    if len(result) == 0:
+        raise KeyError(f'Cannot find user {username}')
+    conn.commit()
+    conn.close()
+    return result
+
+
+def get_all_users(conn):
+    cursor = conn.cursor()
+    cursor.execute('select * from user')
+    rows = cursor.fetchall()
+    users = {}
+    for row in rows:
+        users[row[0]] = row[1]
+    # conn.close()
+    return users
+
+
 def get_user_id(name):
     results = get_user(name)
-    id = results[0]
-    print(id)
-    if id is None:
+    if results:
+        user = results[0]
+        print(user)
+        return user[0]
+    if results is None:
         raise KeyError(f'User {name} does not exist')
-    return id[0]
 
+
+def is_mp(conn, name):
+    cursor = conn.cursor()
+    cursor.execute('select * from user where username = ?', (name,) )
+    rows = cursor.fetchall()
+    for row in rows:
+        if row[6] in MP:
+            return True
+        else:
+            return False
+            # raise KeyError(f'User {name} is not MP')
 
 
 # def add_user(user name, dob):
@@ -141,18 +176,7 @@ def is_valid_range(measurements):
     return True
 
 
-def select_user(conn, id):
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM users where U_ID = ?", (id,))
-    rows = cur.fetchall()
-    try:
-        return rows[0]
-    except Exception as e:
-        print(f"No user with U_ID = {id}")
-        return None
-
-
-def insert_user(conn, username, password, fn, ln, gender, role, phone, dob, h, w):
+def add_user(conn, username, password, fn, ln, gender, role, phone, dob, h, w):
     new_user = (username, password, fn, ln, gender, role, phone, dob, h, w)
     sql = ''' INSERT INTO user (username, password, firstname, lastname, gender, role, phone, dob, height_cm, weight_kg)
               VALUES(?,?,?,?,?,?,?,?,?,?) '''
@@ -165,31 +189,32 @@ def insert_user(conn, username, password, fn, ln, gender, role, phone, dob, h, w
     return cur.lastrowid
 
 
-def delete_user(conn, id):
-    sql = 'DELETE FROM user WHERE u_id=?'
+def delete_user(conn, name):
+    sql = 'DELETE FROM user WHERE username=?'
     cur = conn.cursor()
     try:
-        cur.execute(sql, (id,))
+        cur.execute(sql, (name,))
         conn.commit()
     except Exception as e:
         print(e)
     return cur.lastrowid
 
 
-def update_user(conn, id, h, w, phone=None):
-    update_info = (phone, h, w, id)
+def update_user(conn, name, phone, h, w):
+    abort_if_user_doesnt_exist(conn, name)
+    update_info = (phone, h, w, name)
     sql = ''' UPDATE user
               SET phone = ? ,
                   height_cm = ? ,
                   weight_kg = ?
-              WHERE u_id = ?'''
+              WHERE username = ?'''
     cur = conn.cursor()
     try:
         cur.execute(sql, update_info)
         conn.commit()
     except Exception as e:
         print(e)
-    user = select_user(conn, id)
+    user = get_user(conn, name)
     print(user)
     return user
 
@@ -219,3 +244,16 @@ if __name__ == '__main__':
 # print(modify_user(0, update1))
 # print(modify_user(5, update2))
 # print(del_user(4))
+
+
+
+# def get_all_users():
+#     conn = db.get_db()
+#     cursor = conn.cursor()
+#     cursor.execute('select * from user')
+#     rows = cursor.fetchall()
+#     users = {}
+#     for row in rows:
+#         users[row[0]] = row[1]
+#     conn.close()
+#     return users
