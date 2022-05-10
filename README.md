@@ -70,9 +70,9 @@ Module branches: module branches to add and implement new feature. After passing
 
 ![](./img/login.png)
 
-Register page
+##### Register page
 
-
+![register](./img/register.png)
 
 
 
@@ -105,11 +105,15 @@ Define Interface for devices to ingest data into the system
 
 Push mechanisms. Once the results or updates come out, they can be sent out immediately.
 
+![](./img/homepage.png)
 
-
-**Database schema**
+### Database schema
 
 ![](./img/device_db.png)
+
+
+
+
 
 
 

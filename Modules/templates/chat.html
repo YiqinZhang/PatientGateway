@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1 class="display-4">{% block title %} Send a New Message {% endblock %}</h1>
-<form action = "{{url_for('send_chat', name=name)}}" method="post">
+<form action = "{{url_for('home.send_chat', name=name)}}" method="post">
     <div class="form-group">
         <label for="To">To</label>
         <input id = "To" type="text" name="To"
@@ -36,7 +36,7 @@
 
 <h1 class="display-4">Chat History</h1>
 
-<form action = "{{url_for('chat_history', name=name)}}" method="post">
+<form action = "{{url_for('home.chat_history', name=name)}}" method="post">
     <div class="row">
         <div class="col">
         <input id = appoint type="text" class="form-control" placeholder="Appointment with" name = doctor aria-label="First name">

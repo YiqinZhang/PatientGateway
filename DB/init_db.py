@@ -7,23 +7,23 @@ with open('schema.sql') as f:
 
 cur = connection.cursor()
 
-sql = "INSERT INTO user (username, password, firstname, lastname, gender, role, phone,  dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-cur.execute(sql, ('admin', 'admin', 'admin', 'admin', 'female', 'admin', '8888888888', '2022-2-22', 170, 55))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, gender, role, phone,  dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+cur.execute(sql, ('admin', 'admin', 'admin', 'admin', 'admin@gmail.com', 'female', 'admin', '8888888888', '2022-2-22', 170, 55))
 
-sql = "INSERT INTO user (username, password, firstname, lastname, role, phone, dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?,?, ?)"
-cur.execute(sql, ('jack', '123', 'Tom', 'Smith', 'doctor', '4444444444','2000-2-22', 170, 55))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, role, phone, dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?, ?,?, ?)"
+cur.execute(sql, ('jack', '123', 'Tom', 'Smith', 'jack@gmail.com', 'doctor',  '4444444444','2000-2-22', 170, 55))
 
-sql = "INSERT INTO user (username, password, firstname, lastname, role, phone,  dob, height_cm, weight_kg)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
-cur.execute(sql, ('jerry', '123', 'Jerry', 'Disney', 'nurse', '3333333333','2000-2-22', 170, 55))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, role, phone,  dob, height_cm, weight_kg)VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+cur.execute(sql, ('jerry', '123', 'Jerry', 'Disney', 'jerry@gmail.com', 'nurse', '3333333333','2000-2-22', 170, 55))
 
-sql = "INSERT INTO user (username, password, firstname, lastname, gender, role, phone,  dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-cur.execute(sql, ('rose', '123', 'Rose', 'Titanic', 'female', 'patient', '6666666666','2000-2-22', 170, 55))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, gender, role, phone,  dob, height_cm, weight_kg)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+cur.execute(sql, ('rose', '123', 'Rose', 'Titanic','rose@gmail.com', 'female', 'patient', '6666666666','2000-2-22', 170, 55))
 
-sql = "INSERT INTO user (username, password, firstname, lastname, gender, role,  phone,  dob)VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-cur.execute(sql, ('Jassica', '123', 'Jassica', 'Atlantic', 'female', 'family', '1234567890','2000-2-22'))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, gender, role,  phone,  dob)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+cur.execute(sql, ('Jassica', '123', 'Jassica', 'Atlantic', 'jassica@gmail.com', 'female', 'family', '1234567890','2000-2-22'))
 
-sql = "INSERT INTO user (username, password, firstname, lastname, gender, role, phone,  dob)VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-cur.execute(sql, ('Mark', '123', 'Mark', 'Zuck', 'male', 'developer', '5555555555','2000-2-22'))
+sql = "INSERT INTO user (username, password, firstname, lastname, email, gender, role, phone,  dob)VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+cur.execute(sql, ('Mark', '123', 'Mark', 'Zuck', 'mark@gmail.com', 'male', 'developer', '5555555555', '2000-2-22'))
 
 sql_devices = "INSERT INTO device (data_type, measurement, patient_name, doctor_name, nurse_name)" \
               "VALUES (?, ?, ?, ?, ?)"

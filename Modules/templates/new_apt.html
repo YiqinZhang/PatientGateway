@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="display-4">{% block title %} Make a New Appointment {% endblock %}</h1>
+<form action = "{{url_for('home.make_appointment', name=name)}}" method="post">
+    <div class="row">
+      <div class="col">
+          <label for="doctor">Doctor</label>
+        <input id = doctor type="text" class="form-control" placeholder="Doctor name"  name = doctor aria-label="To">
+      </div>
+      <div class="col">
+          <label for="patient">Patient</label>
+        <input id = patient type="text" class="form-control" placeholder="Patient name" name = patient aria-label="To">
+      <br>
+      </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+          <label for="date">Appointment Date</label>
+        <input id = date type="text" class="form-control" placeholder="YYYY-MM-DD" name = date aria-label="First name">
+        <br>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <label for="startime">Start Time</label>
+        <input id="startime"  type="text" class="form-control" placeholder="HH : MM : SS" name = startime aria-label="Last name">
+      </div>
+        <div class="col">
+          <label for="endtime">End Time</label>
+        <input  id="endtime" type="text" class="form-control" placeholder="HH : MM : SS" name = endtime aria-label="Last name">
+        <br>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="symptom">Symptoms: </label><br>
+            <textarea id="symptom" name="symptom" rows="4" cols="50" placeholder="Reasons to visit..." type="text" class="form-control"  style="height:200px;"  ></textarea><br>
+        </div>
+    </div>
+
+  <div class="col-12">
+    <button class="btn btn-success" type="submit">Submit</button>
+  </div>
+</form>
+<h1 class="display-4">Appointment History</h1>
+
+<form action = "{{url_for('home.appointment_history', name=name)}}" method="post">
+    <div class="row">
+        <div class="col">
+<!--          <label for="appoint"> </label>-->
+        <input id = appoint type="text" class="form-control" placeholder="Appointment with" name = doctor aria-label="First name">
+        <br>
+        </div>
+    </div>
+    <div class="col-12">
+        <button class="btn btn-success" type="submit">Submit</button>
+
+    </div>
+    <hr>
+</form>
+{% endblock %}

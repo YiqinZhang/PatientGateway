@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="display-4">{% block title %}Welcome to Health Platform, {{name}}!{% endblock %}</h3>
+    <h6 class="text-black-60">Account Profile<hr>
+    <span class="text-black-60" style='margin-right:3.5em; margin-left:2.5em'>Email </span>
+    <span class="text-black-60" style='margin-right:1.25em'>Gender</span>
+    <span class="text-black-60" style='margin-right:4em'>Role</span>
+    <span class="text-black-60" style='margin-right:4em'>Phone</span>
+    <span class="text-black-60" style='margin-right:1.25em'>Dob</span>
+    <span class="text-black-60" style='margin-right:1.25em'>Height(cm) </span>
+    <span class="text-black-60" style='margin-right:1.25em'>Weight(kg) </span>
+    </h6>
+    {% for post in info[5: -1] %}
+        <span class="text-black-60" style='margin-right:1.25em'>{{ post }}</span>
+    {% endfor %}
+    <hr>
+    <button type="button" class="btn btn-success">
+      Measurement <span class="badge bg-secondary">4</span>
+    </button>
+
+        <h6 class="text-black-60">
+            <br>Measurement Profile<hr>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-success">
+        <a href="{{ url_for('home.chat_history', name=name) }}" class="btn btn-outline-success active" aria-current="page">Chat Box</a><span class="badge bg-secondary">4</span>
+        </button>
+    </div>
+    <div class="btn-group">
+        <button type="button" class="btn btn-success">
+        <a href="{{ url_for('home.make_appointment', name=name) }}" class="btn btn-outline-success active" aria-current="page">Appointment</a><span class="badge bg-secondary">4</span>
+        </button>
+    </div>
+
+{% endblock %}

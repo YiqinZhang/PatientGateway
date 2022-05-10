@@ -1,14 +1,33 @@
+import os
 import sqlite3
-
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+from py.error import Error
+
+
+db_dir = 'database.db'
+
+
+def create_connection(db_d):
+    conn = None
+    try:
+        conn = sqlite3.connect(db_d)
+    except Error as e:
+        print(e)
+    return conn
 
 
 def get_db():
+    # if os.path.exists(db_dir):
+    #     os.remove(db_dir)
     if 'db' not in g:
-        g.db = sqlite3.connect('DB/database.db')
-        g.db.row_factory = sqlite3.Row
+        g.db = sqlite3.connect(
+            current_app.config['DATABASE'],
+            detect_types=sqlite3.PARSE_DECLTYPES
+        )
+    # g.db = sqlite3.connect(db_dir)
+    g.db.row_factory = sqlite3.Row
 
     return g.db
 
@@ -38,3 +57,4 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+

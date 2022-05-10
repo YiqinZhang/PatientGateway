@@ -1,33 +1,34 @@
-import json
-from DB import database as db
+from DB import db
+from DB.db import db_dir
 
-indicators = ["user_id", "name", "dob", "gender", "blood_type", "height", "weight",
-              "temp", "pulse", "systolic_blood_pressure", "oxygen_level",
+indicators = ["u_id", "username", "dob", "gender", "blood_type", "height_cm", "weight_kg",
+              "temperature", "pulse", "systolic_blood_pressure", "oxygen_level",
               "diastolic_blood_pressure", "glucose_level"]
 MP = ['doctor', 'nurse', 'MP']
 
 
 def create_user_table():
-    conn = db.get_db()
+    conn = db.create_connection(db_dir)
     cursor = conn.cursor()
 
-    sql = 'drop table if exists appointment'
+    sql = 'drop table if exists user'
     cursor.execute(sql)
-    sql = '''CREATE TABLE user (u_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    sql = '''CREATE TABLE user (u_id INTEGER AUTO_INCREMENT PRIMARY KEY, 
         username VARCHAR(40) UNIQUE NOT NULL,
         password VARCHAR(40) NOT NULL,
         firstname VARCHAR(40) NOT NULL, 
         lastname VARCHAR(40) NOT NULL, 
+        email VARCHAR(40) NOT NULL, 
         gender VARCHAR(20) CHECK (gender IN ('male', 'female')) DEFAULT ('male') NOT NULL, 
         role VARCHAR(20) CHECK (role IN ('doctor', 'nurse', 'patient', 'family', 'admin', 'developer')) NOT NULL DEFAULT ('patient'), 
         phone VARCHAR(20) CHECK (LENGTH(Phone) = 10) DEFAULT (0), 
         dob DATETIME NOT NULL, 
-        height_in_cm INT NOT NULL, 
-        weight_in_kg INT NOT NULL,
+        height_cm INT NOT NULL, 
+        weight_kg INT NOT NULL,
         created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);'''
     cursor.execute(sql)
-    db.commit()
-    db.close()
+    conn.commit()
+    conn.close()
 
 
 def abort_if_user_doesnt_exist(conn, username):
@@ -89,6 +90,17 @@ def get_all_users(conn):
         users[row[0]] = row[1]
     # conn.close()
     return users
+
+
+def get_all_emails(conn):
+    cursor = conn.cursor()
+    cursor.execute('select * from user')
+    rows = cursor.fetchall()
+    emails = {}
+    for row in rows:
+        emails[row[0]] = row[5]
+    # conn.close()
+    return emails
 
 
 def get_user_id(name):
@@ -176,10 +188,10 @@ def is_valid_range(measurements):
     return True
 
 
-def add_user(conn, username, password, fn, ln, gender, role, phone, dob, h, w):
+def add_user(conn, username, password, fn, ln, email, gender, role, phone, dob, h, w):
     new_user = (username, password, fn, ln, gender, role, phone, dob, h, w)
-    sql = ''' INSERT INTO user (username, password, firstname, lastname, gender, role, phone, dob, height_cm, weight_kg)
-              VALUES(?,?,?,?,?,?,?,?,?,?) '''
+    sql = ''' INSERT INTO user (username, password, firstname, lastname, email, gender, role, phone, dob, height_cm, weight_kg)
+              VALUES(?,?,?,?,?,?,?,?,?,?,?) '''
     cur = conn.cursor()
     try:
         cur.execute(sql, new_user)
@@ -219,11 +231,11 @@ def update_user(conn, name, phone, h, w):
     return user
 
 
-if __name__ == '__main__':
-    conn = db.get_db()
-    create_user_table()
-    update_user(conn, 5,'', 180, 60 )
-# print(get_user(1))
+# if __name__ == '__main__':
+#     conn = db.create_connection()
+#     create_user_table()
+#     update_user(conn, 5,'', 180, 60 )
+# # print(get_user(1))
 # print(add_user(4, 'rose', '1/11/2001'))
 # update1 = {
 #     "temp": "97",

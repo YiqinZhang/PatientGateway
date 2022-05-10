@@ -1,5 +1,6 @@
 from datetime import datetime
-import DB.db as db
+
+from DB import db
 
 MP = ['doctor', 'nurse', 'MP']
 
@@ -19,8 +20,8 @@ def create_appointment_table():
     sql = 'create table appointment (a_id INT AUTO_INCREMENT, doctor_name VARCHAR(40) NOT NULL, patient_name VARCHAR(40) NOT NULL,' \
           'appointment_date VARCHAR(40), start VARCHAR(40), finish VARCHAR(40), symptom TEXT, PRIMARY KEY (a_id)) '
     cursor.execute(sql)
-    db.commit()
-    db.close()
+    conn.commit()
+    conn.close()
 
 
 def store_appointment(doctor, patient, date, startime, endtime, symptom):
