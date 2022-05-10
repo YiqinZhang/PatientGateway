@@ -1,38 +1,24 @@
-import sqlite3
-
+from DB.db import db_dir
 from Modules import user
-from py.error import Error
-from DB import database as db
+from DB import db as db
 from datetime import datetime
-
-db_dir = '../DB/database.db'
-
-
-def create_connection(db_file):
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-    except Error as e:
-        print(e)
-    return conn
 
 
 def create_chat_table():
-    conn = db.get_db()
+    conn = db.create_connection(db_dir)
     cursor = conn.cursor()
     sql = 'DROP TABLE IF EXISTS chat'
     cursor.execute(sql)
-    sql = '''create table chat (c_id INT AUTO_INCREMENT, 
+    sql = '''create table chat (c_id INT AUTO_INCREMENT PRIMARY KEY, 
             sender VARCHAR(40) REFERENCES user (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-            recipient VARCHAR(40) REFERENCES user (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,,
+            recipient VARCHAR(40) REFERENCES user (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
             type VARCHAR(40) CHECK( type IN ('message','image','voice','video') ) NOT NULL,
             content TEXT NOT NULL,
             transcript TEXT,
-            created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY(c_id);'''
+            created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);'''
     cursor.execute(sql)
-    db.commit()
-    db.close()
+    conn.commit()
+    conn.close()
 
 
 # def send_chat(sender, to, type, content):
@@ -108,9 +94,3 @@ def delete_chat(conn, c_id):
         print(e)
     return cur.lastrowid
 
-
-# conn = create_connection(db_dir)
-# cur = conn.cursor()
-# delete_chat(conn, 8)
-# conn.commit()
-# conn.close()

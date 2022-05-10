@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health</title>
+<link href="../static/css/login.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+      <!-- Navigation -->
+      <header> <a href="">
+        <h4 class="logo">Health</h4>
+        </a>
+        <nav>
+          <ul>
+            <li><a href="#hero">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li> <a href="#contact">CONTACT</a></li>
+          </ul>
+        </nav>
+      </header>
+        <footer>
+          <section>
+            <div class="footer_column">
+                <div class="fill">
+                    <img src="../static/images/doctors.jpg" alt="" width="600" height="800"/>
+                    <h2 >Welcome to Health Platform</h2>
+                </div>
+            </div>
+        <div class="footer_column">
+           <div class="jumbotron jumbotron-fluid text-center">
+        <form method="POST" action="">
+            <fieldset class="form-group">
+                <legend class="display-4" >Log In</legend><hr>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+                <div class="form-group">
+<!--                    {{ form.submit(class="btn btn-success button") }}-->
+                    <button type="submit" class="btn btn-success btn-group-lg" >login</button>
+                </div>
+            </fieldset>
+            <div class="border-top pt-3">
+                <small class="text-muted ml-2">
+                    <br>
+                    <a href="#">Forgot Password?</a><br>
+                </small>
+                <small class="text-muted">
+                    Need An Account? <a class="ml-2" href="{{ url_for('auth.register') }}">Sign Up Now</a>
+                </small>
+            </div>
+        </form>
+    </div>
+
+<!--         <p id="signup"> Don't have an account? <a href="{{ url_for('auth.register') }}" }} ><strong>Sign up here!</strong></a></p>-->
+               <hr>
+               <hr>
+             </div>
+        </section>
+        </footer>
+
+      <!-- Footer Section -->
+      <section class="footer_banner" id="contact">
+        <div class="thumb">
+<!--          <div class="thumbnail">-->
+          <h3 class="stats" align="center">WHO ARE WE</h3>
+          <p id="intro"> First wealth is health. Prevention is better than cure.
+          </p>
+
+    </div>
+    <div class="thumbnail">
+        <h3 class="stats">CONTACT</h3>
+        <p>Call us: (123) 456-7890 <br>
+            Text us: (123) 456-7890</p>
+          <p>info@health.com</p>
+          <p>735 Commonwealth Avenue </p>
+          <p>Boston, MA 02215</p>
+    </div>
+        <div class="thumbnail">
+          <h3 class="stats">About</h3>
+          <p>Privacy Policy</p>
+          <p>Terms of Use</p>
+          <a  style="display: inline-block; overflow: hidden; border-radius: 13px; width: 200px; height: 83px;">
+          <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-US?size=250x83&amp;releaseDate=1272326400&h=9bed1d93979b252401dd70e49fee2f51" alt="Download on the App Store" style="border-radius: 13px; width: 120px; height: 83px;"></a>
+        </div>
+    </section>
+
+      <div class="copyright">&copy;2022- Copyright</div>
+        <!-- Main Container Ends -->
+    </div>
+    </div>
+</body>
+</html>

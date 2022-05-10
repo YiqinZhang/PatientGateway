@@ -44,7 +44,7 @@ header {
 .logo {
 	color: #fff;
 	font-weight: bold;
-	text-align: undefined;
+	text-align: left;
 	width: 10%;
 	float: left;
 	margin-top: 15px;
@@ -167,12 +167,12 @@ a:not([href]):hover {
 #logo {
   display: flex;
   justify-content: center;
-  align-items: right;
+  align-items: normal;
 }
 
 .badge badge-primary{
   /*color: #fff;*/
-	color: #43A047
+	color: #43A047;
   background-color: #43A047;
   border-color: #43A047;
 }
@@ -298,7 +298,7 @@ align-items: center;
   font-size: 18px;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, 
+  transition: color 0.15s ease-in-out;
 	  
 }
 
@@ -382,7 +382,7 @@ fieldset:disabled a.btn {
 
 .footer_banner .stats {
 	text-align: center;
-	/*width: 30%;*/
+	width: 30%;
 	color: #118811;
 	margin-bottom: 15px;
 	text-transform: uppercase;
@@ -430,7 +430,7 @@ fieldset:disabled a.btn {
 	margin-bottom: 0px;
 	margin-left: 0px;
 	color: #212529;	
-	font:200;
+	font-weight:200;
 }
 .footer_banner a{
 /*	float:right;*/
@@ -452,7 +452,35 @@ fieldset:disabled a.btn {
 	border-top-width: 2px;
 }
 
-
+.form-group {
+  position: relative;
+}
+.form-group.email:before {
+  content: "\f007";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: #999;
+}
+.form-group.password:before {
+  content: "\f023";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: #999;
+}
 /*
 .copyright {
 	text-align: center;

@@ -1,5 +1,4 @@
 from datetime import datetime
-import DB.db as db
 
 MP = ['doctor', 'nurse', 'MP']
 
@@ -10,7 +9,7 @@ def format_time(t):
 
 
 def create_appointment_table():
-    conn = db.get_db()
+    conn = DB.get_db()
     cursor = conn.cursor()
 
     sql = 'drop table if exists appointment'
@@ -19,12 +18,12 @@ def create_appointment_table():
     sql = 'create table appointment (a_id INT AUTO_INCREMENT, doctor_name VARCHAR(40) NOT NULL, patient_name VARCHAR(40) NOT NULL,' \
           'appointment_date VARCHAR(40), start VARCHAR(40), finish VARCHAR(40), symptom TEXT, PRIMARY KEY (a_id)) '
     cursor.execute(sql)
-    db.commit()
-    db.close()
+    DB.commit()
+    DB.close()
 
 
 def store_appointment(doctor, patient, date, startime, endtime, symptom):
-    conn = db.get_db()
+    conn = DB.get_db()
     cursor = conn.cursor()
     t = (doctor, patient, date, startime, endtime, symptom)
     sql = 'insert into appointment (doctor_name, patient_name, appointment_date, start, finish, symptom) values (?,?,?,?,?,?)'
@@ -36,7 +35,7 @@ def store_appointment(doctor, patient, date, startime, endtime, symptom):
 
 
 def get_appointment(username):
-    conn = db.get_db()
+    conn = DB.get_db()
     cursor = conn.cursor()
     sql = 'select * from appointment where doctor_name = ? or patient_name = ?'
     cursor.execute(sql, (username, username))
@@ -47,7 +46,7 @@ def get_appointment(username):
 
 
 def get_one_appointment(doctor, patient):
-    conn = db.get_db()
+    conn = DB.get_db()
     cursor = conn.cursor()
     sql = 'select * from appointment where doctor_name = ? and patient_name = ?'
     cursor.execute(sql, (doctor, patient))
@@ -58,7 +57,7 @@ def get_one_appointment(doctor, patient):
 
 
 def make_appointment(doctor, patient, date, startime, endtime, symptom):
-    conn = db.get_db()
+    conn = DB.get_db()
     cursor = conn.cursor()
     sql = "select * from appointment where doctor_name = ? or patient_name = ?"
     cursor.execute(sql, (doctor, patient))
